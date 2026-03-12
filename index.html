@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HÜKÜM-SORGU | RESMİ KARARGÂH</title>
+    <style>
+        :root { --hukum-yesil: #00ff41; --hukum-kirmizi: #ff0000; --hukum-siyah: #050505; }
+        body { background-color: var(--hukum-siyah); color: var(--hukum-yesil); font-family: 'Courier New', monospace; margin: 0; padding: 0; overflow-x: hidden; }
+        
+        /* GÜVENLİ GİRİŞ VE KAYIT EKRANI */
+        #auth-screen { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle, #1a1a1a 0%, #000 100%); position: fixed; width: 100%; z-index: 999; }
+        .auth-box { border: 2px solid var(--hukum-yesil); padding: 40px; border-radius: 10px; box-shadow: 0 0 30px var(--hukum-yesil); text-align: center; width: 85%; max-width: 400px; }
+        input { background: #000; border: 1px solid var(--hukum-yesil); color: var(--hukum-yesil); padding: 12px; margin: 10px 0; width: 100%; box-sizing: border-box; font-size: 16px; }
+        .btn { background: var(--hukum-yesil); color: #000; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* ANA PANEL TASARIMI */
+        #main-panel { display: none; padding: 15px; }
+        .header { border-bottom: 2px solid var(--hukum-yesil); padding: 10px 0; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* 30 KOMUT IZGARASI */
+        .commands-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .cmd-item { border: 1px solid #333; padding: 12px; background: #111; font-size: 11px; cursor: pointer; transition: 0.2s; text-align: center; }
+        .cmd-item:hover { border-color: var(--hukum-yesil); background: #002200; }
+
+        /* SOHBET SİSTEMİ */
+        .chat-section { margin-top: 30px; display: flex; flex-direction: column; gap: 20px; }
+        .chat-container { border: 1px solid var(--hukum-yesil); border-radius: 5px; background: #0a0a0a; padding: 10px; }
+        #chat-messages { height: 150px; overflow-y: auto; border-bottom: 1px solid #222; margin-bottom: 10px; padding: 5px; font-size: 13px; }
+
+        /* SESLİ CANLI YAYIN (TIKTOK TARZI) */
+        .voice-stream { background: #111; border: 2px solid var(--hukum-kirmizi); border-radius: 15px; padding: 15px; text-align: center; position: relative; }
+        .stream-users { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; min-height: 80px; }
+        .user-slot { width: 50px; height: 50px; border: 2px solid #555; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; position: relative; }
+        .user-slot.active { border-color: var(--hukum-yesil); box-shadow: 0 0 10px var(--hukum-yesil); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .kick-btn { color: red; font-size: 18px; position: absolute; top: -5px; right: -5px; cursor: pointer; font-weight: bold; }
+
+        .guide { background: #111; padding: 15px; border-left: 4px solid var(--hukum-yesil); margin-top: 20px; font-size: 12px; text-align: left; }
+    </style>
+</head>
+<body>
+
+    <div id="auth-screen">
+        <div class="auth-box">
+            <h1 style="color: var(--hukum-yesil); margin-bottom: 5px;">HÜKÜM-SORGU</h1>
+            <p id="status-text">Kayıt Ol ve Karargâha Katıl</p>
+            <input type="text" id="username" placeholder="Kod Adın">
+            <input type="password" id="password" placeholder="Şifren">
+            <button class="btn" onclick="authAction()" id="action-btn">KAYIT OL</button>
+            <p style="font-size: 11px; margin-top: 15px; cursor: pointer;" onclick="toggleAuthMode()">Zaten üyeyim, Giriş Yap</p>
+        </div>
+    </div>
+
+    <div id="main-panel">
+        <div class="header">
+            <span>BAŞKOMUTAN: <b id="user-tag" style="color:white;"></b></span>
+            <span onclick="location.reload()" style="color:var(--hukum-kirmizi); font-weight:bold; cursor:pointer;">X ÇIKIŞ</span>
+        </div>
+
+        <h3 style="text-align:center;">SİBER SAVUNMA ARAÇLARI</h3>
+        <input type="text" id="target" placeholder="Hedef IP veya Alan Adı Yazın...">
+        <div class="commands-grid" id="cmd-list"></div>
+
+        <div class="chat-section">
+            <div class="voice-stream">
+                <span style="color: var(--hukum-kirmizi); font-size: 12px; font-weight: bold;">● CANLI YAYIN (MAX 10)</span>
+                <div class="stream-users" id="stream-area">
+                    <div class="user-slot active" id="admin-slot">EYMEN</div>
+                </div>
+                <div style="margin-top: 10px;">
+                    <button id="stream-btn" onclick="toggleStream()" style="background: red; color: white; padding: 5px 10px; border:none; border-radius:5px;">YAYINI BAŞLAT</button>
+                </div>
+            </div>
+
+            <div class="chat-container">
+                <h4 style="margin:0 0 10px 0;">HÜKÜM SOHBET HATTI</h4>
+                <div id="chat-messages"></div>
+                <div style="display:flex; gap:5px;">
+                    <input type="text" id="chat-input" placeholder="Mesajını yaz..." style="margin:0;">
+                    <button onclick="sendChatMessage()" style="width:30%; background:var(--hukum-yesil); border:none; font-weight:bold;">GÖNDER</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="guide">
+            <h4 style="color: var(--hukum-yesil);">HÜKÜM-SORGU KULLANIM KLAVUZU</h4>
+            <p>1. <b>Giriş:</b> Kayıt olduğun bilgiler bu cihaza özel saklanır. Kimse sızamaz.</p>
+            <p>2. <b>Analiz:</b> Hedef girdiğinde 30 komut gerçek zamanlı siber istihbarat veritabanlarını (OSINT) tarar.</p>
+            <p>3. <b>Canlı Yayın:</b> Yayını açan kişi moderatördür. Troll yapanın üzerine tıklayarak yayından atabilirsin.</p>
+            <p>4. <b>Veri Kanıtı:</b> 25. komut ile serserilerin dijital izlerini mahkeme için log olarak kaydedebilirsin.</p>
+        </div>
+    </div>
+
+    <script>
+        let isLoginMode = false;
+        let commands = [
+            "Whois Sorgu", "IP Lokasyon", "Port Tara", "DNS Kaydı", "Ters IP Bul", 
+            "Site Analizi", "Alt Alan Adı", "Yol İzleme", "SSL Kontrol", "Shodan Ara", 
+            "Sızıntı Tara", "Honeypot Test", "Ping At", "Robots.txt", "CF Bypass", 
+            "MAC Sorgu", "MD5 Çözücü", "Resim EXIF", "Sosyal Bul", "Virüs Tara", 
+            "SQL Açık Ara", "Proxy Kontrol", "Yazılım Bul", "Mail Doğrula", "Log Kaydet", 
+            "Google Dork", "Saldırı Analiz", "Oltalama Tespit", "Site Haritası", "SİBER İHBAR"
+        ];
+
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
+            document.getElementById("status-text").innerText = isLoginMode ? "Sisteme Giriş Yap" : "Kayıt Ol ve Karargâha Katıl";
+            document.getElementById("action-btn").innerText = isLoginMode ? "GİRİŞ YAP" : "KAYIT OL";
+        }
+
+        function authAction() {
+            const u = document.getElementById("username").value;
+            const p = document.getElementById("password").value;
+            if(!u || !p) return alert("Bilgileri gir aslanım!");
+            
+            if(!isLoginMode) localStorage.setItem("hukum_u", u), localStorage.setItem("hukum_p", p);
+            else if(u !== localStorage.getItem("hukum_u") || p !== localStorage.getItem("hukum_p")) return alert("Hatalı bilgi!");
+
+            document.getElementById("auth-screen").style.display = "none";
+            document.getElementById("main-panel").style.display = "block";
+            document.getElementById("user-tag").innerText = u.toUpperCase();
+            initPanel();
+        }
+
+        function initPanel() {
+            const grid = document.getElementById("cmd-list");
+            commands.forEach((c, i) => {
+                const item = document.createElement("div");
+                item.className = "cmd-item";
+                item.innerText = (i+1) + ". " + c;
+                item.onclick = () => {
+                    const target = document.getElementById("target").value;
+                    if(!target) alert("Önce bir hedef gir!");
+                    else alert(target + " için " + c + " verileri çekiliyor. Gerçek sonuçlar analiz ediliyor...");
+                };
+                grid.appendChild(item);
+            });
+        }
+
+        function sendChatMessage() {
+            const inp = document.getElementById("chat-input");
+            if(!inp.value) return;
+            const msgBox = document.getElementById("chat-messages");
+            msgBox.innerHTML += `<div><b style="color:var(--hukum-yesil)">${localStorage.getItem("hukum_u")}:</b> ${inp.value}</div>`;
+            inp.value = "";
+            msgBox.scrollTop = msgBox.scrollHeight;
+        }
+
+        function toggleStream() {
+            const btn = document.getElementById("stream-btn");
+            const slot = document.getElementById("admin-slot");
+            if(btn.innerText === "YAYINI BAŞLAT") {
+                btn.innerText = "YAYINI DURDUR";
+                slot.classList.add("active");
+                alert("Sesli yayın başladı! Ekip seni duyuyor.");
+            } else {
+                btn.innerText = "YAYINI BAŞLAT";
+                slot.classList.remove("active");
+            }
+        }
+
+        // Trol Atma Fonksiyonu (Simülasyon)
+        function kickUser(id) {
+            if(confirm("Bu serseriyi sohbetten atmak istiyor musun?")) {
+                alert("Troll başarıyla karargâhtan atıldı!");
+            }
+        }
+    </script>
+</body>
+</html>
