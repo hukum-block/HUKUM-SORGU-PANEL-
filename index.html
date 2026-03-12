@@ -3,166 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HÜKÜM-SORGU | SİBER İSTİHBARAT MERKEZİ</title>
+    <title>HÜKÜM-SORGU | RESMİ PANEL</title>
     <style>
-        :root { --neon: #00ff41; --danger: #ff0000; --bg: #050505; }
-        body { background: var(--bg); color: var(--neon); font-family: 'Courier New', monospace; margin: 0; padding: 0; }
-        .hidden { display: none; }
+        :root { --neon: #00ff41; --dark: #050505; --red: #ff0000; }
+        body { background: var(--dark); color: var(--neon); font-family: 'Courier New', monospace; margin: 0; overflow-x: hidden; }
         
-        /* GÜVENLİK DUVARI (GİRİŞ) */
-        #auth-screen { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle, #1a1a1a 0%, #000 100%); position: fixed; width: 100%; z-index: 1000; }
-        .auth-box { border: 2px solid var(--neon); padding: 30px; border-radius: 10px; box-shadow: 0 0 30px var(--neon); text-align: center; width: 85%; }
-        input, button { background: #000; border: 1px solid var(--neon); color: var(--neon); padding: 12px; margin: 10px 0; width: 100%; box-sizing: border-box; }
-        button { font-weight: bold; cursor: pointer; text-transform: uppercase; }
-        button:hover { background: var(--neon); color: #000; }
+        /* GİRİŞ EKRANI - ASLA GEÇİLEMEZ */
+        #auth-layer { position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center; }
+        .auth-card { border: 2px solid var(--neon); padding: 30px; border-radius: 10px; box-shadow: 0 0 25px var(--neon); text-align: center; width: 300px; }
+        input { background: #000; border: 1px solid var(--neon); color: var(--neon); padding: 12px; margin: 10px 0; width: 100%; box-sizing: border-box; }
+        .btn-auth { background: var(--neon); color: #000; border: none; padding: 12px; width: 100%; font-weight: bold; cursor: pointer; }
 
-        /* PANEL ANA YAPI */
-        #main-panel { padding: 15px; }
-        .terminal { background: #000; border: 1px solid #333; padding: 10px; height: 150px; overflow-y: auto; font-size: 12px; margin-bottom: 20px; color: #00ff00; border-left: 3px solid var(--neon); }
+        /* ANA PANEL TASARIMI */
+        #karargah { display: none; padding: 15px; }
+        .nav-bar { border-bottom: 2px solid var(--neon); padding-bottom: 10px; margin-bottom: 15px; display: flex; justify-content: space-between; font-weight: bold; }
         
-        /* 50 KOMUT SİSTEMİ */
-        .grid-50 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 10px; }
-        .cmd-btn { font-size: 10px; padding: 8px; border: 1px solid #444; background: #111; color: var(--neon); cursor: pointer; }
-        .cmd-btn:hover { background: #003300; border-color: var(--neon); }
+        /* LOG KANALI (ÖZEL VERİ EKRANI) */
+        .log-terminal { background: #001100; border: 1px solid #004400; height: 180px; overflow-y: auto; padding: 10px; font-size: 11px; margin-bottom: 15px; color: #fff; border-left: 5px solid var(--neon); }
+        .log-entry { margin-bottom: 5px; border-bottom: 1px dashed #222; padding-bottom: 3px; }
 
-        /* MULTIPLAYER SOHBET VE SES (TIKTOK TARZI) */
-        .live-stream { border: 2px solid var(--danger); border-radius: 10px; margin-top: 20px; padding: 10px; background: #111; }
-        .users-list { display: flex; overflow-x: auto; gap: 10px; padding: 10px; }
-        .user-circle { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #555; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; position: relative; }
-        .user-circle.speaking { border-color: var(--danger); box-shadow: 0 0 10px var(--danger); animation: pulse 1s infinite; }
+        /* KOMUT IZGARASI (40 ADET) */
+        .cmd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .cmd-unit { background: #111; border: 1px solid #333; padding: 8px; font-size: 10px; cursor: pointer; text-align: center; }
+        .cmd-unit:hover { border-color: var(--neon); background: #002200; }
+
+        /* TIKTOK TARZI SESLİ & YAZILI SOHBET */
+        .social-zone { margin-top: 25px; display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .stream-box { background: #000; border: 2px solid var(--red); border-radius: 15px; padding: 15px; text-align: center; }
+        .stream-slots { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+        .slot { width: 55px; height: 55px; border: 2px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; position: relative; }
+        .slot.live { border-color: var(--red); box-shadow: 0 0 10px var(--red); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+        .chat-box { border: 1px solid var(--neon); background: #0a0a0a; height: 200px; display: flex; flex-direction: column; }
+        #messages { flex-grow: 1; overflow-y: auto; padding: 5px; font-size: 12px; }
         
-        .chat-multi { height: 200px; border: 1px solid var(--neon); margin-top: 10px; display: flex; flex-direction: column; }
-        #chat-logs { flex-grow: 1; overflow-y: auto; padding: 5px; font-size: 11px; }
-
-        /* KILAVUZ */
-        .guide-section { background: #111; padding: 15px; border: 1px solid #333; margin-top: 20px; text-align: left; font-size: 11px; }
+        .guide { background: #111; padding: 15px; margin-top: 20px; border-left: 5px solid yellow; font-size: 11px; text-align: left; }
     </style>
 </head>
 <body>
 
-    <div id="auth-screen">
-        <div class="auth-box">
-            <h1 style="margin:0;">HÜKÜM-SORGU</h1>
-            <p>SİBER SAVUNMA BİRİMİ</p>
-            <input type="text" id="user" placeholder="Kod Adın">
-            <input type="password" id="pass" placeholder="Güvenlik Anahtarı">
-            <button onclick="login()">SİSTEMİ AKTİFLEŞTİR</button>
+    <div id="auth-layer">
+        <div class="auth-card">
+            <h2 id="title">HÜKÜM-SORGU</h2>
+            <p id="sub">Siber Güvenlik Kayıt</p>
+            <input type="text" id="u-name" placeholder="Kod Adın">
+            <input type="password" id="u-pass" placeholder="Şifren">
+            <button class="btn-auth" id="action-btn" onclick="executeAuth()">KAYIT OL</button>
+            <p style="font-size: 10px; cursor:pointer; margin-top:10px;" onclick="switchAuth()">Zaten üyeyim, Giriş Yap</p>
         </div>
     </div>
 
-    <div id="main-panel" class="hidden">
-        <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--neon); padding-bottom:5px;">
-            <span>OPERATÖR: <b id="op-name"></b></span>
-            <span style="color:red">DURUM: AKTİF</span>
+    <div id="karargah">
+        <div class="nav-bar">
+            <span>OPERATÖR: <b id="display-user"></b></span>
+            <span style="color: var(--red);">[DURUM: AKTİF]</span>
         </div>
 
-        <h4>KOMUT ÇIKTILARI (VERİ MERKEZİ)</h4>
-        <div class="terminal" id="terminal-out">Sistem hazır. Hedef girin ve komut seçin...</div>
-        <input type="text" id="target" placeholder="Hedef IP, Domain veya Telefon...">
+        <h4>ÖZEL LOG KANALI (VERİ ÇIKTILARI)</h4>
+        <div class="log-terminal" id="terminal">
+            <div class="log-entry">Sistem hazır... Hedef veri girişi bekleniyor.</div>
+        </div>
+        
+        <input type="text" id="target" placeholder="Hedef IP, Domain veya No...">
+        
+        <h4>40 SİBER OPERASYON KOMUTU</h4>
+        <div class="cmd-grid" id="cmd-box"></div>
 
-        <div class="grid-50" id="cmd-container"></div>
+        <div class="social-zone">
+            <div class="stream-box">
+                <span style="color:red; font-weight:bold;">● CANLI YAYIN ODASI (MAX 10)</span>
+                <div class="stream-slots" id="stream-slots">
+                    <div class="slot" id="main-slot">ADMİN</div>
+                </div>
+                <button onclick="toggleLive()" id="live-btn" style="background:red; color:white; border:none; padding:8px 20px; border-radius:20px; cursor:pointer; font-weight:bold;">YAYIN AÇ</button>
+            </div>
 
-        <div class="live-stream">
-            <div style="display:flex; justify-content:space-between;">
-                <span style="color:red; font-weight:bold;">● CANLI YAYIN KONFERANSI</span>
-                <button onclick="joinStream()" id="stream-btn" style="width:100px; font-size:10px; padding:2px;">KATIL</button>
-            </div>
-            <div class="users-list" id="active-users">
-                <div class="user-circle speaking">EYMEN</div>
-            </div>
-            <div class="chat-multi">
-                <div id="chat-logs"><i>Sohbet odasına bağlandınız...</i></div>
-                <div style="display:flex;">
-                    <input type="text" id="chat-in" placeholder="Mesaj..." style="margin:0; border:none; border-top:1px solid var(--neon);">
-                    <button onclick="send()" style="width:60px; margin:0; border:none; background:var(--neon); color:#000;">OK</button>
+            <div class="chat-box">
+                <div id="messages"></div>
+                <div style="display:flex; border-top:1px solid var(--neon);">
+                    <input type="text" id="msg-in" placeholder="Mesaj yaz..." style="border:none; margin:0;">
+                    <button onclick="sendMsg()" style="width:70px; background:var(--neon); border:none; color:000; font-weight:bold;">GÖNDER</button>
                 </div>
             </div>
         </div>
 
-        <div class="guide-section" id="guide-area">
-            <h3 style="color:var(--neon)">SİBER KOMUT KILAVUZU</h3>
-            <div id="guide-content">Yükleniyor...</div>
+        <div class="guide">
+            <h3 style="color:yellow; margin-top:0;">HÜKÜM KULLANIM KLAVUZU</h3>
+            <div id="guide-text"></div>
         </div>
     </div>
 
     <script>
-        const commands = [
-            "Whois", "IP Geo", "Port Scan", "DNS Lookup", "Rev-IP", "Subdomain", "Trace", "SSL Check", "Shodan", "Pwned",
-            "HoneyPot", "Ping", "Robots", "CF Bypass", "MAC Info", "Hash Dec", "EXIF Analiz", "Social Find", "Virus Scan", "SQL Map",
-            "Proxy", "CMS Det", "Mail Auth", "Log Save", "Dorking", "Attack Analiz", "Phish Det", "SiteMap", "EGM İhbar", "Admin Panel",
-            "DDoS Guard", "Packet Trace", "ISP Check", "OS Detect", "Headers", "Firewall Check", "Cookie Analiz", "WayBack", "Phone Info", "Metadata",
-            "Port 80/443", "User-Agent", "IP History", "DNS Bruteforce", "Dir Scan", "Link Analiz", "API Key Scan", "ZeroDay Check", "Rat Detect", "Hüküm Final"
+        let isLogin = false;
+        const cmds = [
+            "Whois", "IP Geo", "Port Scan", "DNS Info", "Rev IP", "Subdomain", "Trace", "SSL Check", "Shodan", "Pwned",
+            "HoneyPot", "Ping", "Robots", "CF Check", "MAC Info", "Hash Dec", "EXIF", "Social", "Virus Scan", "SQL Map",
+            "Proxy", "CMS", "Mail Auth", "Log Save", "Google Dork", "Attack", "Phish Check", "SiteMap", "EGM İhbar", "Admin",
+            "DDoS Guard", "Packet", "ISP Info", "OS Detect", "Headers", "Firewall", "Cookie", "Wayback", "Phone Info", "Meta"
         ];
 
         const guideData = {
-            "Whois": "Sitenin gerçek sahibini ve kayıt tarihini gösterir.",
-            "IP Geo": "Hedefin bağlı olduğu şehir ve operatör bilgisini (Adres temeli) verir.",
-            "Pwned": "Hedef mailin hangi sitelerde şifresinin çalındığını bulur (Korkutmak için birebir).",
-            "Phone Info": "Telefon numarasının hangi operatöre ve bölgeye ait olduğunu sorgular.",
-            "Rat Detect": "Kendi cihazındaki casus yazılımları bulur."
+            "Whois": "Sitenin kimlik bilgilerini çıkarır.",
+            "IP Geo": "Hedefin bulunduğu şehri ve operatörü log kanalına düşürür.",
+            "Pwned": "Hedef mailin sızdırılmış şifrelerini kontrol eder.",
+            "Phone Info": "Numaranın hangi operatöre kayıtlı olduğunu gösterir.",
+            "EGM İhbar": "Siber suçları direkt devlete bildirir."
         };
 
-        function login() {
-            const u = document.getElementById("user").value;
-            const p = document.getElementById("pass").value;
-            if(u && p) {
-                document.getElementById("auth-screen").classList.add("hidden");
-                document.getElementById("main-panel").classList.remove("hidden");
-                document.getElementById("op-name").innerText = u.toUpperCase();
-                setup();
+        function switchAuth() {
+            isLogin = !isLogin;
+            document.getElementById("title").innerText = isLogin ? "GİRİŞ YAP" : "HÜKÜM-SORGU";
+            document.getElementById("action-btn").innerText = isLogin ? "GİRİŞ YAP" : "KAYIT OL";
+        }
+
+        function executeAuth() {
+            const u = document.getElementById("u-name").value;
+            const p = document.getElementById("u-pass").value;
+            if(!u || !p) return alert("Boş bırakma aslanım!");
+            
+            if(!isLogin) {
+                localStorage.setItem("h_u", u); localStorage.setItem("h_p", p);
+                alert("Kayıt Başarılı! Şimdi giriş yap.");
+                switchAuth();
+            } else {
+                if(u === localStorage.getItem("h_u") && p === localStorage.getItem("h_p")) {
+                    document.getElementById("auth-layer").style.display = "none";
+                    document.getElementById("karargah").style.display = "block";
+                    document.getElementById("display-user").innerText = u.toUpperCase();
+                    loadKarargah();
+                } else { alert("Hatalı Giriş!"); }
             }
         }
 
-        function setup() {
-            const cont = document.getElementById("cmd-container");
-            const gCont = document.getElementById("guide-content");
-            commands.forEach((c, i) => {
-                let b = document.createElement("button");
-                b.className = "cmd-btn";
-                b.innerText = (i+1) + "." + c;
-                b.onclick = () => runCmd(c);
-                cont.appendChild(b);
+        function loadKarargah() {
+            const box = document.getElementById("cmd-box");
+            const gBox = document.getElementById("guide-text");
+            cmds.forEach((c, i) => {
+                let div = document.createElement("div");
+                div.className = "cmd-unit";
+                div.innerText = (i+1) + ". " + c;
+                div.onclick = () => runOp(c);
+                box.appendChild(div);
 
                 let gItem = document.createElement("p");
-                gItem.innerHTML = `<b>${c}:</b> ${guideData[c] || "Siber analiz ve veri toplama işlemi."}`;
-                gCont.appendChild(gItem);
+                gItem.innerHTML = `<b>${c}:</b> ${guideData[c] || "Siber analiz verisi toplar."}`;
+                gBox.appendChild(gItem);
             });
         }
 
-        function runCmd(c) {
-            const t = document.getElementById("target").value;
-            const out = document.getElementById("terminal-out");
-            if(!t) return alert("Hedef girmeden operasyon başlamaz!");
+        function runOp(op) {
+            const target = document.getElementById("target").value;
+            if(!target) return alert("Hedef girmedin!");
+            const term = document.getElementById("terminal");
             
-            // GERÇEK BİLGİ SİMÜLASYONU (API BAĞLANTISI GİBİ ÇALIŞIR)
-            out.innerHTML += `<br> [>] ${c} Sorgulanıyor: ${t}...`;
+            term.innerHTML += `<div class="log-entry" style="color:yellow">[RUNNING] ${op} Operasyonu Başlatıldı...</div>`;
+            
             setTimeout(() => {
-                let res = "";
-                if(c === "IP Geo") res = "LOKASYON: Kurtalan/Siirt - Operatör: Türk Telekom - IP: 176.XXX...";
-                else if(c === "Phone Info") res = "OPERATÖR: Turkcell - DURUM: Aktif - BÖLGE: Güneydoğu Anadolu";
-                else res = "VERİ: İşlem başarılı, loglar kaydedildi.";
-                out.innerHTML += `<br> <span style="color:white">SONUÇ: ${res}</span>`;
-                out.scrollTop = out.scrollHeight;
+                let data = "VERİ: İşlem başarılı. Kayıtlar veri tabanına eklendi.";
+                if(op === "IP Geo") data = "ŞEHİR: Siirt/Kurtalan - OPERATÖR: Turkcell - IP: 185.12.XXX";
+                if(op === "Phone Info") data = "DURUM: Aktif - HAT: Bireysel - KONUM: Türkiye";
+                
+                term.innerHTML += `<div class="log-entry" style="color:white">[SUCCESS] ${op} SONUCU: ${data}</div>`;
+                term.scrollTop = term.scrollHeight;
             }, 1000);
         }
 
-        function send() {
-            const inp = document.getElementById("chat-in");
-            if(!inp.value) return;
-            document.getElementById("chat-logs").innerHTML += `<div><b>${document.getElementById("op-name").innerText}:</b> ${inp.value}</div>`;
-            inp.value = "";
+        function toggleLive() {
+            const btn = document.getElementById("live-btn");
+            const slot = document.getElementById("main-slot");
+            if(btn.innerText === "YAYIN AÇ") {
+                btn.innerText = "YAYINI KAPAT";
+                slot.classList.add("live");
+                alert("Canlı yayın başladı. Karargâha sesin gidiyor!");
+            } else {
+                btn.innerText = "YAYIN AÇ";
+                slot.classList.remove("live");
+            }
         }
 
-        function joinStream() {
-            const btn = document.getElementById("stream-btn");
-            if(btn.innerText === "KATIL") {
-                btn.innerText = "AYRIL";
-                alert("Ses kanalı aktif. Mikrofon hazır.");
-            } else {
-                btn.innerText = "KATIL";
-            }
+        function sendMsg() {
+            const m = document.getElementById("msg-in");
+            if(!m.value) return;
+            document.getElementById("messages").innerHTML += `<div><b>${localStorage.getItem("h_u")}:</b> ${m.value}</div>`;
+            m.value = "";
         }
     </script>
 </body>
 </html>
-
