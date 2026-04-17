@@ -3,130 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HÜKÜM MERKEZİ | EYO PAŞA</title>
+    <title>HÜKÜM SİBER MERKEZ | EYO PAŞA</title>
     <style>
-        :root { --neon-green: #00ff41; --dark-bg: #050505; }
-        body { background-color: var(--dark-bg); color: var(--neon-green); font-family: 'Courier New', monospace; margin: 0; padding: 10px; overflow-x: hidden; }
+        :root { --neon: #00ff41; --bg: #050505; }
+        body { background: var(--bg); color: var(--neon); font-family: 'Courier New', monospace; margin: 0; padding: 10px; }
+        .header { border: 2px solid var(--neon); padding: 5px; text-align: center; margin-bottom: 10px; box-shadow: 0 0 15px var(--neon); }
         
-        /* GİRİŞ EKRANI */
-        #auth-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .auth-box { border: 2px solid var(--neon-green); padding: 30px; box-shadow: 0 0 20px var(--neon-green); text-align: center; border-radius: 10px; width: 80%; }
+        /* ÖZEL LOG KANALI */
+        #log-terminal { background: #000; border: 1px solid var(--neon); height: 180px; overflow-y: auto; padding: 10px; font-size: 11px; margin-bottom: 15px; border-radius: 5px; }
+        .log-entry { margin-bottom: 3px; border-left: 2px solid var(--neon); padding-left: 5px; }
+
+        /* ANA MENÜLER */
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .menu-btn { background: #111; border: 1px solid var(--neon); color: var(--neon); padding: 15px; font-weight: bold; cursor: pointer; text-align: center; font-size: 12px; }
+        .menu-btn:hover { background: #004400; box-shadow: 0 0 10px var(--neon); }
+
+        /* KOMUT PANELİ */
+        #cmd-panel { display: none; margin-top: 15px; border: 1px solid #0ff; padding: 15px; background: #001100; border-radius: 10px; }
+        .cmd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .action-btn { background: #000; border: 1px solid #0ff; color: #0ff; padding: 10px; font-size: 10px; cursor: pointer; border-radius: 3px; }
         
-        /* ANA PANEL */
-        #main-panel { display: none; }
-        .header { text-align: center; border: 1px solid var(--neon-green); padding: 5px; margin-bottom: 10px; box-shadow: 0 0 10px var(--neon-green); }
-        #log-terminal { background: #000; border: 1px solid var(--neon-green); height: 150px; overflow-y: auto; padding: 10px; font-size: 11px; margin-bottom: 10px; color: #fff; }
-        
-        /* MENÜLER */
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-        .menu-btn { background: #111; border: 1px solid var(--neon-green); color: var(--neon-green); padding: 12px; font-size: 12px; cursor: pointer; text-align: center; font-weight: bold; }
-        
-        /* KOMUT ALANI (30 TUŞ) */
-        #command-area { border: 1px solid var(--neon-green); margin-top: 10px; padding: 10px; display: none; background: #001100; }
-        .command-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; max-height: 300px; overflow-y: auto; }
-        .cmd-btn { background: #000; border: 1px solid #0ff; color: #0ff; padding: 8px; font-size: 10px; cursor: pointer; }
-        
-        .input-box { background: #000; border: 1px solid var(--neon-green); color: var(--neon-green); width: 90%; padding: 10px; margin: 10px 0; }
-        .exec-btn { background: var(--neon-green); color: #000; border: none; padding: 12px; width: 100%; font-weight: bold; cursor: pointer; }
+        /* OPERASYON FORMU */
+        #op-form { display: none; margin-top: 20px; border-top: 1px dashed var(--neon); padding-top: 15px; }
+        .op-input { background: #000; border: 1px solid var(--neon); color: var(--neon); width: 100%; padding: 12px; box-sizing: border-box; margin-bottom: 10px; }
+        .op-exec { background: var(--neon); color: #000; border: none; width: 100%; padding: 15px; font-weight: bold; cursor: pointer; font-size: 14px; }
     </style>
 </head>
 <body>
 
-<div id="auth-screen">
-    <div class="auth-box">
-        <h2 style="color:red;">HÜKÜM SİSTEMİ GİRİŞ</h2>
-        <p>Sistem Erişimi İçin Kod Girin</p>
-        <input type="password" id="auth-code" class="input-box" placeholder="Kod: 1923" style="text-align:center;">
-        <button class="exec-btn" onclick="checkAuth()">SİSTEME SIZ</button>
-        <p style="font-size: 10px; margin-top: 15px;">Bot Koruması Aktif (Anti-DDoS)</p>
-    </div>
+<div class="header">
+    <strong>BAŞKOMUTAN: EYO PAŞA</strong> | <span style="color:red">GİZLİLİK: %100</span>
 </div>
 
-<div id="main-panel">
-    <div class="header">
-        <strong>BAŞKOMUTAN: EYO PAŞA</strong> | <span style="color:red">SİSTEM: AKTİF</span>
+<div id="log-terminal">
+    <div class="log-entry">[INFO] Hüküm Veri Merkezi Aktif.</div>
+    <div class="log-entry">[INFO] Anonim Proxy Zinciri Kuruldu.</div>
+</div>
+
+<div class="menu-grid" id="main-nav">
     </div>
 
-    <div id="log-terminal">
-        [SYSTEM] Çekirdek yazılım yüklendi...<br>
-        [SYSTEM] Anonimlik katmanı %100 devrede...<br>
-    </div>
+<div id="cmd-panel">
+    <h3 id="unit-title" style="margin:0 0 10px 0; color:#0ff;">BİRİM KOMUTLARI</h3>
+    <div class="cmd-grid" id="unit-btns"></div>
 
-    <div class="menu-grid" id="main-menus">
-        </div>
-
-    <div id="command-area">
-        <h3 id="active-unit-name" style="margin:0; color:#0ff; font-size: 14px;">BİRİM SEÇİLDİ</h3>
-        <hr border="1">
-        <div class="command-list" id="command-buttons"></div>
-        <div id="execution-form" style="display:none; margin-top: 15px; border-top: 1px dashed var(--neon-green);">
-            <p id="target-desc" style="font-size:12px;"></p>
-            <input type="text" id="op-input" class="input-box" placeholder="Veri girin...">
-            <button class="exec-btn" onclick="startOperation()">OPERASYONU BAŞLAT</button>
-        </div>
+    <div id="op-form">
+        <p id="op-desc" style="font-size:12px; color:#ffff00;"></p>
+        <div id="form-fields"></div>
+        <button class="op-exec" onclick="launchOperation()">OPERASYONU BAŞLAT</button>
     </div>
 </div>
 
 <script>
-    const menus = [
-        "Siber Şube", "Beyaz Şapka", "İstihbarat", "Kırmızı Şapka", "İstihkam", 
-        "Kripto", "İllegal İhbar", "Analiz", "Sistem", "Hukuk"
-    ];
+    const units = {
+        "Siber Şube": ["IP Sorgu", "Konum Bul", "ISP Analiz", "DNS Trace", "Port Tarama", "Cihaz Tespiti", "Sistem Sürümü", "MAC Adresi", "Ağ Analizi", "Bot Kontrol"],
+        "İllegal İhbar": ["EGM Anonim Bildir", "Terör İhbarı", "Siber Suç Bildir", "Çocuk İstismarı", "Dolandırıcılık", "Uyuşturucu Ticareti", "Discord Baskın", "Site Kapatma"],
+        "İstihbarat": ["OSINT Tarama", "Kullanıcı İzle", "Email Sızıntı", "Sosyal Medya", "Veri Tabanı", "Meta Veri", "Telefon Sorgu", "Dijital Kimlik"],
+        "Beyaz Şapka": ["Site Zafiyet", "SSL Testi", "WAF Geçiş", "DDOS Savunma", "Log Temizle", "XSS Kontrol", "SQLi Tarama", "Güvenlik Duvarı"]
+    };
 
-    function checkAuth() {
-        let code = document.getElementById('auth-code').value;
-        if(code === "1923") { // Giriş kodu burası Eyo Paşa
-            document.getElementById('auth-screen').style.display = 'none';
-            document.getElementById('main-panel').style.display = 'block';
-            buildMenus();
-            addLog("Eyo Paşa Karargaha Giriş Yaptı.");
-        } else {
-            alert("ERİŞİM REDDEDİLDİ: Yanlış Kod!");
-        }
-    }
+    let selectedUnit = "";
+    let selectedOp = "";
 
-    function buildMenus() {
-        let grid = document.getElementById('main-menus');
-        menus.forEach((m, index) => {
-            grid.innerHTML += `<div class="menu-btn" onclick="loadCommands('${m}')">${index+1}. ${m.toUpperCase()}</div>`;
+    function init() {
+        const nav = document.getElementById('main-nav');
+        Object.keys(units).forEach(key => {
+            nav.innerHTML += `<div class="menu-btn" onclick="openUnit('${key}')">${key.toUpperCase()}</div>`;
         });
     }
 
-    function addLog(msg) {
-        let log = document.getElementById('log-terminal');
-        log.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}<br>`;
-        log.scrollTop = log.scrollHeight;
+    function addLog(msg, type="INFO") {
+        const terminal = document.getElementById('log-terminal');
+        const color = type === "CRITICAL" ? "red" : (type === "SUCCESS" ? "#00ff41" : "white");
+        terminal.innerHTML += `<div class="log-entry" style="color:${color}">[${new Date().toLocaleTimeString()}] [${type}] ${msg}</div>`;
+        terminal.scrollTop = terminal.scrollHeight;
     }
 
-    function loadCommands(unit) {
-        document.getElementById('command-area').style.display = 'block';
-        document.getElementById('active-unit-name').innerText = unit + " - 30 STRATEJİK KOMUT";
-        document.getElementById('execution-form').style.display = 'none';
+    function openUnit(unit) {
+        selectedUnit = unit;
+        document.getElementById('cmd-panel').style.display = 'block';
+        document.getElementById('op-form').style.display = 'none';
+        document.getElementById('unit-title').innerText = unit + " Operasyonları";
+        const btnBox = document.getElementById('unit-btns');
+        btnBox.innerHTML = "";
+        units[unit].forEach(op => {
+            btnBox.innerHTML += `<button class="action-btn" onclick="prepOp('${op}')">${op}</button>`;
+        });
+        addLog(`${unit} birimi yetkilendirildi.`);
+    }
+
+    function prepOp(op) {
+        selectedOp = op;
+        document.getElementById('op-form').style.display = 'block';
+        document.getElementById('op-desc').innerText = `DİKKAT: ${op} işlemi tamamen anonim olarak yürütülecektir.`;
+        const fields = document.getElementById('form-fields');
+        fields.innerHTML = "";
         
-        let cmdList = document.getElementById('command-buttons');
-        cmdList.innerHTML = "";
-        
-        for(let i=1; i<=30; i++) {
-            cmdList.innerHTML += `<button class="cmd-btn" onclick="selectCmd('${unit} - Komut ${i}')">${unit.split(' ')[0]} C-${i}</button>`;
+        if(op.includes("İhbar") || op.includes("Bildir")) {
+            fields.innerHTML = `
+                <input type="text" id="target" class="op-input" placeholder="Şüpheli Kişi/Site/Grup Bilgisi">
+                <input type="text" id="reason" class="op-input" placeholder="Suç Detayı (Örn: Vatan Hainliği)">
+            `;
+        } else {
+            fields.innerHTML = `<input type="text" id="target" class="op-input" placeholder="Hedef IP veya Domain girin...">`;
         }
-        addLog(`${unit} birimi için 30 komut başarıyla yüklendi.`);
+        addLog(`${op} için operatör girdisi bekleniyor...`);
     }
 
-    function selectCmd(cmd) {
-        document.getElementById('execution-form').style.display = 'block';
-        document.getElementById('target-desc').innerText = cmd + " için hedef tanımlayın:";
-        addLog(`${cmd} için operatör onayı bekleniyor...`);
-    }
+    function launchOperation() {
+        const target = document.getElementById('target').value;
+        if(!target) return alert("Hedef belirtilmedi!");
 
-    function startOperation() {
-        let val = document.getElementById('op-input').value;
-        addLog("OPERASYON BAŞLATILDI: " + val, "#ffff00");
-        addLog("Anonimlik katmanı temizleniyor...", "#0ff");
+        addLog(`OPERASYON BAŞLATILDI: ${selectedOp}`, "CRITICAL");
+        addLog(`Anonim Katman Devrede: Tor Gateway %100.`);
+        
         setTimeout(() => {
-            addLog("İşlem Başarılı. Veri merkeze iletildi.", "#00ff41");
-        }, 2000);
+            addLog(`Veri İşleniyor: ${target}...`, "INFO");
+            setTimeout(() => {
+                if(selectedOp.includes("İhbar")) {
+                    addLog(`BİLDİRİ: ${target} hakkındaki kanıtlar şifrelendi. Anonim olarak resmi makamlara iletildi.`, "SUCCESS");
+                    addLog(`SONUÇ: İhbar işleme alındı. Emniyet birimleri bilgilendirildi.`, "SUCCESS");
+                } else {
+                    addLog(`SONUÇ: ${target} verileri çekildi. Log kanalı güncellendi.`, "SUCCESS");
+                }
+            }, 1500);
+        }, 1000);
     }
-</script>
 
+    init();
+</script>
 </body>
 </html>
+
