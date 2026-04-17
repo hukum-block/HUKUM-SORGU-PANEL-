@@ -3,91 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HÜKÜM SİBER KARARGAH V1</title>
+    <title>HÜKÜM MERKEZİ | EYO PAŞA</title>
     <style>
-        body { background-color: #0a0a0a; color: #00ff41; font-family: 'Courier New', Courier, monospace; margin: 0; overflow-x: hidden; }
-        .header { text-align: center; border-bottom: 2px solid #00ff41; padding: 10px; text-shadow: 0 0 10px #00ff41; }
+        :root { --neon-green: #00ff41; --dark-bg: #050505; }
+        body { background-color: var(--dark-bg); color: var(--neon-green); font-family: 'Courier New', monospace; margin: 0; padding: 10px; overflow-x: hidden; }
         
-        /* Log Kanalı */
-        #log-terminal { background: #000; border: 1px solid #00ff41; height: 150px; margin: 10px; padding: 10px; overflow-y: auto; font-size: 12px; box-shadow: inset 0 0 10px #00ff41; }
+        /* GİRİŞ EKRANI */
+        #auth-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .auth-box { border: 2px solid var(--neon-green); padding: 30px; box-shadow: 0 0 20px var(--neon-green); text-align: center; border-radius: 10px; width: 80%; }
         
-        /* Menü Grid Yapısı */
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-        .menu-btn { background: #111; border: 1px solid #00ff41; color: #00ff41; padding: 15px; font-weight: bold; cursor: pointer; text-align: center; transition: 0.3s; }
-        .menu-btn:active { background: #00ff41; color: #000; }
+        /* ANA PANEL */
+        #main-panel { display: none; }
+        .header { text-align: center; border: 1px solid var(--neon-green); padding: 5px; margin-bottom: 10px; box-shadow: 0 0 10px var(--neon-green); }
+        #log-terminal { background: #000; border: 1px solid var(--neon-green); height: 150px; overflow-y: auto; padding: 10px; font-size: 11px; margin-bottom: 10px; color: #fff; }
         
-        /* İşlem Alanı */
-        #action-panel { border: 1px solid #00ff41; margin: 10px; padding: 20px; display: none; }
-        input { background: #000; border: 1px solid #00ff41; color: #00ff41; width: 90%; padding: 10px; margin-top: 10px; }
-        button { background: #00ff41; color: #000; border: none; padding: 10px 20px; margin-top: 10px; font-weight: bold; cursor: pointer; }
+        /* MENÜLER */
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .menu-btn { background: #111; border: 1px solid var(--neon-green); color: var(--neon-green); padding: 12px; font-size: 12px; cursor: pointer; text-align: center; font-weight: bold; }
+        
+        /* KOMUT ALANI (30 TUŞ) */
+        #command-area { border: 1px solid var(--neon-green); margin-top: 10px; padding: 10px; display: none; background: #001100; }
+        .command-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; max-height: 300px; overflow-y: auto; }
+        .cmd-btn { background: #000; border: 1px solid #0ff; color: #0ff; padding: 8px; font-size: 10px; cursor: pointer; }
+        
+        .input-box { background: #000; border: 1px solid var(--neon-green); color: var(--neon-green); width: 90%; padding: 10px; margin: 10px 0; }
+        .exec-btn { background: var(--neon-green); color: #000; border: none; padding: 12px; width: 100%; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h2>HÜKÜM OPERASYON MERKEZİ</h2>
-    <small>KOMUTAN: EYMEN PAŞA | ANONİM KATMAN: AKTİF</small>
+<div id="auth-screen">
+    <div class="auth-box">
+        <h2 style="color:red;">HÜKÜM SİSTEMİ GİRİŞ</h2>
+        <p>Sistem Erişimi İçin Kod Girin</p>
+        <input type="password" id="auth-code" class="input-box" placeholder="Kod: 1923" style="text-align:center;">
+        <button class="exec-btn" onclick="checkAuth()">SİSTEME SIZ</button>
+        <p style="font-size: 10px; margin-top: 15px;">Bot Koruması Aktif (Anti-DDoS)</p>
+    </div>
 </div>
 
-<div id="log-terminal">
-    [SYSTEM] Karargah başlatıldı...<br>
-    [SYSTEM] Anonim VPN tüneli kuruluyor...<br>
-    [SYSTEM] Log kanalı dinleniyor. Emir bekleniyor...<br>
-</div>
+<div id="main-panel">
+    <div class="header">
+        <strong>BAŞKOMUTAN: EYO PAŞA</strong> | <span style="color:red">SİSTEM: AKTİF</span>
+    </div>
 
-<div class="menu-grid">
-    <div class="menu-btn" onclick="openMenu('Siber Şube')">1. SİBER ŞUBE</div>
-    <div class="menu-btn" onclick="openMenu('Beyaz Şapka')">2. BEYAZ ŞAPKA</div>
-    <div class="menu-btn" onclick="openMenu('İstihbarat')">3. İSTİHBARAT</div>
-    <div class="menu-btn" onclick="openMenu('Kırmızı Şapka')">4. KIRMIZI ŞAPKA</div>
-    <div class="menu-btn" onclick="openMenu('İstihkam')">5. İSTİHKAM</div>
-    <div class="menu-btn" onclick="openMenu('Kripto')">6. KRİPTO</div>
-    <div class="menu-btn" onclick="openMenu('İllegal İhbar')">7. İLLEGAL İHBAR</div>
-    <div class="menu-btn" onclick="openMenu('Analiz')">8. ANALİZ</div>
-    <div class="menu-btn" onclick="openMenu('Sistem')">9. SİSTEM</div>
-    <div class="menu-btn" onclick="openMenu('Hukuk')">10. HUKUK</div>
-</div>
+    <div id="log-terminal">
+        [SYSTEM] Çekirdek yazılım yüklendi...<br>
+        [SYSTEM] Anonimlik katmanı %100 devrede...<br>
+    </div>
 
-<div id="action-panel">
-    <h3 id="menu-title">Birim Seçildi</h3>
-    <div id="unit-functions"></div>
-    <div id="input-area" style="display:none;">
-        <input type="text" id="target-input" placeholder="Hedef IP veya Veri girin...">
-        <button onclick="executeAction()">OPERASYONU BAŞLAT</button>
+    <div class="menu-grid" id="main-menus">
+        </div>
+
+    <div id="command-area">
+        <h3 id="active-unit-name" style="margin:0; color:#0ff; font-size: 14px;">BİRİM SEÇİLDİ</h3>
+        <hr border="1">
+        <div class="command-list" id="command-buttons"></div>
+        <div id="execution-form" style="display:none; margin-top: 15px; border-top: 1px dashed var(--neon-green);">
+            <p id="target-desc" style="font-size:12px;"></p>
+            <input type="text" id="op-input" class="input-box" placeholder="Veri girin...">
+            <button class="exec-btn" onclick="startOperation()">OPERASYONU BAŞLAT</button>
+        </div>
     </div>
 </div>
 
 <script>
-    const log = document.getElementById('log-terminal');
-    
+    const menus = [
+        "Siber Şube", "Beyaz Şapka", "İstihbarat", "Kırmızı Şapka", "İstihkam", 
+        "Kripto", "İllegal İhbar", "Analiz", "Sistem", "Hukuk"
+    ];
+
+    function checkAuth() {
+        let code = document.getElementById('auth-code').value;
+        if(code === "1923") { // Giriş kodu burası Eyo Paşa
+            document.getElementById('auth-screen').style.display = 'none';
+            document.getElementById('main-panel').style.display = 'block';
+            buildMenus();
+            addLog("Eyo Paşa Karargaha Giriş Yaptı.");
+        } else {
+            alert("ERİŞİM REDDEDİLDİ: Yanlış Kod!");
+        }
+    }
+
+    function buildMenus() {
+        let grid = document.getElementById('main-menus');
+        menus.forEach((m, index) => {
+            grid.innerHTML += `<div class="menu-btn" onclick="loadCommands('${m}')">${index+1}. ${m.toUpperCase()}</div>`;
+        });
+    }
+
     function addLog(msg) {
+        let log = document.getElementById('log-terminal');
         log.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}<br>`;
         log.scrollTop = log.scrollHeight;
     }
 
-    function openMenu(name) {
-        addLog(`${name} birimi seçildi. Komutlar yükleniyor...`);
-        document.getElementById('action-panel').style.display = 'block';
-        document.getElementById('menu-title').innerText = name + " Birimi";
+    function loadCommands(unit) {
+        document.getElementById('command-area').style.display = 'block';
+        document.getElementById('active-unit-name').innerText = unit + " - 30 STRATEJİK KOMUT";
+        document.getElementById('execution-form').style.display = 'none';
         
-        let functions = "";
-        if(name === 'İllegal İhbar') {
-            functions = "<button onclick='showInput(\"Anonim EGM İhbar\")'>Anonim EGM İhbar</button> <button onclick='showInput(\"Site Bildir\")'>Yasadışı Site Bildir</button>";
-        } else {
-            functions = "<p>Bu birim için 30 komut yükleniyor...</p>";
+        let cmdList = document.getElementById('command-buttons');
+        cmdList.innerHTML = "";
+        
+        for(let i=1; i<=30; i++) {
+            cmdList.innerHTML += `<button class="cmd-btn" onclick="selectCmd('${unit} - Komut ${i}')">${unit.split(' ')[0]} C-${i}</button>`;
         }
-        document.getElementById('unit-functions').innerHTML = functions;
+        addLog(`${unit} birimi için 30 komut başarıyla yüklendi.`);
     }
 
-    function showInput(action) {
-        addLog(`${action} işlemi için veri girişi bekleniyor...`);
-        document.getElementById('input-area').style.display = 'block';
+    function selectCmd(cmd) {
+        document.getElementById('execution-form').style.display = 'block';
+        document.getElementById('target-desc').innerText = cmd + " için hedef tanımlayın:";
+        addLog(`${cmd} için operatör onayı bekleniyor...`);
     }
 
-    function executeAction() {
-        let val = document.getElementById('target-input').value;
-        addLog(`İşlem başlatıldı: ${val} hedefine anonim paketler gönderiliyor...`);
-        addLog(`[OK] İşlem başarıyla tamamlandı. İzler silindi.`);
+    function startOperation() {
+        let val = document.getElementById('op-input').value;
+        addLog("OPERASYON BAŞLATILDI: " + val, "#ffff00");
+        addLog("Anonimlik katmanı temizleniyor...", "#0ff");
+        setTimeout(() => {
+            addLog("İşlem Başarılı. Veri merkeze iletildi.", "#00ff41");
+        }, 2000);
     }
 </script>
 
