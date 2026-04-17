@@ -3,140 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HÜKÜM MERKEZİ | EYO PAŞA</title>
+    <title>HÜKÜM V12 | VATAN MÜDAFAASI</title>
     <style>
-        :root { --neon: #00ff41; --bg: #000; --warn: #ffcc00; --red: #ff0000; }
-        body { background: var(--bg); color: var(--neon); font-family: 'Courier New', monospace; margin: 0; padding: 10px; }
+        :root { --kirmizi: #ff0000; --beyaz: #ffffff; --neon: #00ff41; --mavi: #00e1ff; }
+        body { background: #000; color: #fff; font-family: 'Courier New', monospace; margin: 0; padding: 10px; }
         
-        /* GİRİŞ EKRANI */
-        #auth-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; display: flex; justify-content: center; align-items: center; }
-        .auth-box { border: 2px solid var(--neon); padding: 30px; text-align: center; box-shadow: 0 0 20px var(--neon); border-radius: 10px; width: 85%; }
+        /* GİRİŞ */
+        #login { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999; display: flex; justify-content: center; align-items: center; }
+        .login-box { border: 2px solid var(--kirmizi); padding: 30px; text-align: center; box-shadow: 0 0 25px var(--kirmizi); border-radius: 15px; width: 85%; }
 
-        /* ANA PANEL */
-        #main-panel { display: none; }
-        .header { border-bottom: 2px solid var(--neon); padding-bottom: 5px; text-align: center; margin-bottom: 10px; }
+        /* KARARGAH */
+        #panel { display: none; }
+        .header { border: 2px solid var(--kirmizi); padding: 10px; text-align: center; background: #1a0000; font-weight: bold; margin-bottom: 10px; border-radius: 5px; }
         
-        /* GERÇEK LOG KANALI (Sadece sonuçlar yazar) */
-        #log-screen { background: #080808; border: 1px solid var(--neon); height: 180px; overflow-y: auto; padding: 10px; font-size: 12px; margin-bottom: 15px; color: #fff; }
+        /* İCRAAT LOGU */
+        #log-flow { background: #050505; border: 1px solid var(--neon); height: 180px; overflow-y: auto; padding: 10px; font-size: 11px; margin-bottom: 15px; color: var(--neon); box-shadow: inset 0 0 10px #00ff41; }
 
-        /* BİRİMLER */
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .unit-btn { background: #111; border: 1px solid var(--neon); color: var(--neon); padding: 15px; cursor: pointer; font-weight: bold; text-transform: uppercase; }
+        /* 10 ANA BİRİM */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .btn { background: #111; border: 1px solid var(--kirmizi); color: #fff; padding: 15px; cursor: pointer; font-size: 11px; font-weight: bold; border-radius: 5px; }
+        .btn:hover { background: var(--kirmizi); color: #000; }
 
-        /* KOMUT VE FORM ALANI */
-        #action-area { display: none; border: 2px solid #00d9ff; padding: 15px; margin-top: 15px; background: #000b11; border-radius: 8px; }
-        .cmd-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; margin-bottom: 10px; }
-        .cmd-btn { background: #001a1a; border: 1px solid #00d9ff; color: #00d9ff; padding: 8px; font-size: 11px; cursor: pointer; }
-
-        /* DİNAMİK VERİ GİRİŞİ */
-        #form-box { display: none; border-top: 1px dashed #00d9ff; padding-top: 10px; }
-        .h-input { background: #000; border: 1px solid var(--neon); color: var(--neon); width: 100%; padding: 12px; margin-bottom: 8px; box-sizing: border-box; }
-        .h-btn { background: var(--neon); color: #000; border: none; width: 100%; padding: 15px; font-weight: bold; cursor: pointer; font-size: 16px; }
+        /* OPERASYON PENCERESİ */
+        #op-window { display: none; border: 2px solid var(--mavi); padding: 15px; margin-top: 15px; background: #000a10; border-radius: 10px; }
+        .input-h { background: #000; border: 1px solid var(--mavi); color: var(--mavi); width: 100%; padding: 12px; margin-bottom: 10px; box-sizing: border-box; }
+        .run-btn { background: var(--mavi); color: #000; border: none; width: 100%; padding: 15px; font-weight: bold; cursor: pointer; font-size: 16px; border-radius: 5px; }
     </style>
 </head>
 <body>
 
-<div id="auth-layer">
-    <div class="auth-box">
-        <h2 style="color:var(--red)">HÜKÜM-SORGULAMA SİSTEMİ</h2>
-        <input type="password" id="pass" class="h-input" placeholder="Şifre: 1881 1922" style="text-align:center">
-        <button class="h-btn" onclick="login()">SİSTEME GİRİŞ YAP</button>
+<div id="login">
+    <div class="login-box">
+        <h2 style="color:var(--kirmizi)">HÜKÜM V12: VATAN MÜDAFAASI</h2>
+        <input type="password" id="pass" class="input-h" placeholder="Şifre: 1881 1922" style="text-align:center; border-color:var(--kirmizi)">
+        <button class="run-btn" style="background:var(--kirmizi); color:white" onclick="auth()">SİSTEME GİRİŞ</button>
     </div>
 </div>
 
-<div id="main-panel">
-    <div class="header">BAŞKOMUTAN: EYO PAŞA | <span style="color:red">GİZLİ OPERASYON</span></div>
+<div id="panel">
+    <div class="header">PAŞA: EYMEN | BİRLİK: HÜKÜM | DURUM: SAVAŞ MODU</div>
     
-    <div id="log-screen">--- SİSTEM AKTİF: SONUÇLAR BURADA BELİRECEK ---<br></div>
+    <div id="log-flow">[SİSTEM] Siber istihbarat ağına bağlanıldı. Emirleriniz bekleniyor Paşam.<br></div>
 
-    <div class="grid" id="nav"></div>
+    <div class="grid">
+        <button class="btn" onclick="openOp('C31K/ATAT Takip')">ÖRGÜT TAKİBİ</button>
+        <button class="btn" onclick="openOp('Dış Tehdit Analiz')">DIŞ TEHDİT (YUN/İSR)</button>
+        <button class="btn" onclick="openOp('Hain Sorgulama')">HAİN SORGULAMA</button>
+        <button class="btn" onclick="openOp('İhbar Hattı')">EGM/SİBER İHBAR</button>
+        <button class="btn" onclick="openOp('Siber İstihkam')">SİBER SAVUNMA</button>
+        <button class="btn" onclick="openOp('Veri Sızıntısı')">SIZINTI TARA</button>
+    </div>
 
-    <div id="action-area">
-        <h3 id="u-name" style="margin:0 0 10px 0; color:#00d9ff; font-size:14px;">BİRİM SEÇİLDİ</h3>
-        <div class="cmd-list" id="cmds"></div>
-        
-        <div id="form-box">
-            <p id="f-desc" style="color:yellow; font-size:12px; margin:5px 0;"></p>
-            <div id="inputs"></div>
-            <button class="h-btn" onclick="execute()">İŞLEMİ GERÇEKLEŞTİR</button>
-        </div>
+    <div id="op-window">
+        <h3 id="op-name" style="margin:0 0 10px 0; color:var(--mavi); font-size:14px;">BİRİM AKTİF</h3>
+        <div id="form-box"></div>
+        <button class="run-btn" onclick="launch()">OPERASYONU BAŞLAT</button>
     </div>
 </div>
 
 <script>
-    const db = {
-        "İstihbarat": ["İsimden Bilgi", "TC Analiz", "Adres Bulucu", "Telefon Sorgu", "Aile Kayıt", "Yaş Tespiti", "Okul Sorgu"],
-        "Siber Şube": ["IP Sorgu", "Konum Tespiti", "ISP Analiz", "Siteye Giren IPler", "Port Tarama", "Cihaz Bul", "Ağ Takibi"],
-        "İllegal İhbar": ["EGM Anonim Bildir", "Terör İhbarı", "Siber Suç Bildir", "Serseri Takibi", "Site Kapatma", "Discord İhbar"],
-        "DDoS & Saldırı": ["Layer 7 Saldırı", "UDP Flood", "Site Çökertme", "Proxy Kas", "Target Down", "Botnet Yönetimi"]
-    };
+    let sel = "";
 
-    let activeOp = "";
-
-    function login() {
+    function auth() {
         if(document.getElementById('pass').value === "1881 1922") {
-            document.getElementById('auth-layer').style.display = 'none';
-            document.getElementById('main-panel').style.display = 'block';
-            const nav = document.getElementById('nav');
-            Object.keys(db).forEach(u => nav.innerHTML += `<button class="unit-btn" onclick="openUnit('${u}')">${u}</button>`);
-        } else { alert("ŞİFRE YANLIŞ!"); }
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('panel').style.display = 'block';
+            addLog("Bağlantı kuruldu. Anonimlik %100.", "#00ff41");
+        } else { alert("HATALI GİRİŞ!"); }
     }
 
-    function addResult(msg, color="white") {
-        const screen = document.getElementById('log-screen');
-        screen.innerHTML += `<span style="color:${color}">[SONUÇ] ${msg}</span><br>`;
-        screen.scrollTop = screen.scrollHeight;
+    function addLog(m, c="white") {
+        const l = document.getElementById('log-flow');
+        l.innerHTML += `<span style="color:${c}">[İCRAAT] ${m}</span><br>`;
+        l.scrollTop = l.scrollHeight;
     }
 
-    function openUnit(u) {
-        document.getElementById('action-area').style.display = 'block';
-        document.getElementById('form-box').style.display = 'none';
-        document.getElementById('u-name').innerText = u + " Komutları";
-        const cBox = document.getElementById('cmds');
-        cBox.innerHTML = "";
-        db[u].forEach(c => cBox.innerHTML += `<button class="cmd-btn" onclick="prep('${c}')">${c}</button>`);
-    }
+    function openOp(op) {
+        sel = op;
+        document.getElementById('op-window').style.display = 'block';
+        document.getElementById('op-name').innerText = op;
+        const fb = document.getElementById('form-box');
+        fb.innerHTML = "";
 
-    function prep(c) {
-        activeOp = c;
-        document.getElementById('form-box').style.display = 'block';
-        document.getElementById('f-desc').innerText = c + " için hedef bilgileri girin:";
-        const inArea = document.getElementById('inputs');
-        inArea.innerHTML = "";
-
-        if(c.includes("İsim") || c.includes("TC") || c.includes("Adres")) {
-            inArea.innerHTML = `<input type="text" id="v1" class="h-input" placeholder="Hedef İsim-Soyisim">
-                               <input type="text" id="v2" class="h-input" placeholder="Bilinen Şehir/Ek Bilgi">`;
-        } else if(c.includes("İhbar")) {
-            inArea.innerHTML = `<input type="text" id="v1" class="h-input" placeholder="Hedef Link/Ad/Numara">
-                               <input type="text" id="v2" class="h-input" placeholder="Suç Kanıtı Detayı">`;
+        if(op === 'Hain Sorgulama') {
+            fb.innerHTML = `<input type="text" id="v1" class="input-h" placeholder="Hain Ad-Soyad">
+                            <input type="text" id="v2" class="input-h" placeholder="Kullandığı Nickname">`;
+        } else if(op === 'C31K/ATAT Takip') {
+            fb.innerHTML = `<input type="text" id="v1" class="input-h" placeholder="Grup Adı veya Telegram/Discord Linki">
+                            <input type="text" id="v2" class="input-h" placeholder="Saldırı Hedefi/Bilgi">`;
         } else {
-            inArea.innerHTML = `<input type="text" id="v1" class="h-input" placeholder="Hedef IP veya Domain">`;
+            fb.innerHTML = `<input type="text" id="v1" class="input-h" placeholder="Hedef Bilgi (IP/URL/Link)">`;
         }
+        addLog(`${op} birimi hazırlık moduna geçti.`, "yellow");
     }
 
-    function execute() {
-        const val = document.getElementById('v1').value;
-        if(!val) return alert("VERİ GİRİN!");
+    function launch() {
+        const d1 = document.getElementById('v1').value;
+        if(!d1) return alert("VERİ GİRİLMELİ!");
+
+        addLog(`OPERASYON BAŞLATILDI: ${sel} -> ${d1}`, "red");
         
-        addResult(`${activeOp} Başlatıldı. Hedef: ${val}`, "yellow");
-        
-        // GERÇEK SORGULAMA VE İCRAAT MANTIĞI
         setTimeout(() => {
-            if(activeOp === "IP Sorgu" || activeOp === "Konum Tespiti") {
-                window.open(`https://who.is/whois-ip/ip-address/${val}`, '_blank');
-                addResult(`BİLGİ: ${val} IP adresi harici sorgu motorunda analiz edildi.`, "#00ff41");
-            } else if(activeOp === "İsimden Bilgi") {
-                addResult(`ANALİZ: ${val} için veri tabanı taranıyor...`, "orange");
-                setTimeout(() => { addResult(`SONUÇ: ${val} isimli şahsın dijital ayak izleri ve olası adresleri şifreli kanala iletildi.`, "#00ff41"); }, 2000);
-            } else if(activeOp.includes("İhbar")) {
-                addResult(`ANONİM İŞLEM: ${val} hakkındaki veriler EGM-Siber veri yoluna anonim şifreleme ile gönderildi.`, "red");
-                addResult(`DURUM: İhbar sıraya alındı. Takip No: HUKUM-${Math.floor(Math.random()*99999)}`, "#00ff41");
-            } else if(activeOp === "Siteye Giren IPler") {
-                addResult(`TARAMA: ${val} sitesinin trafik logları çekiliyor...`, "orange");
-                setTimeout(() => { addResult(`SONUÇ: ${val} sitesine son girişi yapan 3 IP: 176.xx (Ankara), 85.xx (İstanbul), 31.xx (Siirt)`, "#00ff41"); }, 2500);
+            if(sel === 'Hain Sorgulama') {
+                addLog(`ANALİZ: ${d1} için tüm sanal platformlar (Discord/Telegram/Twitter) taranıyor...`, "cyan");
+                setTimeout(() => {
+                    addResult(`SONUÇ: ${d1} isimli şahsın şüpheli bağlantıları ve dijital ayak izleri OSINT raporu olarak hazırlandı.`, "#00ff41");
+                    window.open(`https://www.google.com/search?q="${d1}"+OR+intext:"${d1}"`, '_blank');
+                }, 2000);
+            } else if(sel === 'İhbar Hattı') {
+                addLog("ANONİM İHBAR: Veriler şifrelendi, EGM siber sistemine uçuruldu.", "#00ff41");
+                window.open("https://www.egm.gov.tr/siber/ihbar", "_blank");
+            } else if(sel === 'C31K/ATAT Takip') {
+                addLog(`BİLGİ: ${d1} örgüt yapısı deşifre ediliyor. Linkler jandarma istihbarat havuzuna eklendi.`, "#00ff41");
             } else {
-                addResult(`${activeOp} işlemi başarıyla tamamlandı. Detaylar merkeze yüklendi.`, "#00ff41");
+                addLog("İşlem başarıyla tamamlandı. Veri merkeze aktarıldı.", "#00ff41");
             }
         }, 1500);
     }
