@@ -3,130 +3,432 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HÜKÜM V16 | SON KALE</title>
+    <title>Eymen Paşa - İmparatorluk Simülasyonu Script Deposu</title>
     <style>
-        :root { --kan: #ff0000; --neon: #00ff41; --mavi: #00e5ff; --altin: #ffd700; }
-        body { background: #000; color: var(--neon); font-family: 'Courier New', monospace; margin: 0; padding: 10px; }
-        #auth { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 99999; display: flex; justify-content: center; align-items: center; }
-        .auth-card { border: 3px solid var(--kan); padding: 40px; text-align: center; border-radius: 20px; box-shadow: 0 0 40px var(--kan); width: 80%; }
-        #panel { display: none; }
-        .head { border: 1px solid var(--kan); padding: 15px; text-align: center; background: #111; color: var(--altin); font-weight: bold; margin-bottom: 10px; }
-        #log-screen { background: #050505; border: 1px solid var(--neon); height: 180px; overflow-y: auto; padding: 10px; font-size: 11px; margin-bottom: 15px; color: #fff; }
-        .nav-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-        .nav-btn { background: #0a0a0a; border: 1px solid var(--neon); color: var(--neon); padding: 18px; cursor: pointer; font-weight: bold; text-align: left; border-radius: 8px; }
-        #op-box { display: none; border: 2px solid var(--mavi); padding: 20px; margin-top: 15px; background: #000b1a; border-radius: 12px; }
-        .cmd-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 250px; overflow-y: auto; }
-        .c-btn { background: #000; border: 1px solid var(--mavi); color: var(--mavi); padding: 10px; font-size: 10px; cursor: pointer; border-radius: 4px; }
-        #form-area { display: none; margin-top: 20px; border-top: 1px dashed var(--altin); padding-top: 15px; }
-        .h-input { background: #000; border: 1px solid var(--neon); color: var(--neon); width: 100%; padding: 15px; margin-bottom: 12px; box-sizing: border-box; }
-        .launch-btn { background: var(--kan); color: #fff; border: none; width: 100%; padding: 20px; font-weight: bold; cursor: pointer; font-size: 18px; border-radius: 8px; }
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #262626;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 2px solid #d28c00;
+        }
+        h1 {
+            color: #d28c00;
+            margin-bottom: 5px;
+        }
+        p {
+            color: #aaaaaa;
+            font-size: 14px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 20px 0;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            background-color: #111;
+            color: #00ff00;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: monospace;
+            resize: none;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
 
-<div id="auth">
-    <div class="auth-card">
-        <h1 style="color:var(--kan)">HÜKÜM V16</h1>
-        <p>SİBER VATAN SAVUNMA KARARGAHI</p>
-        <input type="password" id="p" class="h-input" placeholder="ŞİFREYİ GİRİN: 1881 1922" style="text-align:center; border-color:var(--kan)">
-        <button class="launch-btn" onclick="openSys()">SİSTEMİ AÇ</button>
-    </div>
-</div>
-
-<div id="panel">
-    <div class="head">KOMUTAN: EYO PAŞA | SİSTEM: %100 GERÇEK İCRAAT | GİZLİLİK: MAKSİMUM</div>
-    <div id="log-screen">[INFO] Stratejik ağ tünelleri kuruldu. Emirlerinizi bekliyoruz Komutanım.<br></div>
+<div class="container">
+    <h1>🍁 İMPARATORLUK DEVLET SİMÜLASYONU 🍁</h1>
+    <p>Eymen Paşa Özel Entegre Geliştirici Scripti</p>
     
-    <div class="nav-grid">
-        <button class="nav-btn" onclick="showU('BEYAZ HACKER')">1. BEYAZ HACKER (50 Gerçek Komut)</button>
-        <button class="nav-btn" onclick="showU('SİBER ŞUBE')">2. SİBER ŞUBE (50 Gerçek Komut)</button>
-        <button class="nav-btn" onclick="showU('DARK WEB')">3. DARK WEB (20 Gerçek Komut)</button>
-        <button class="nav-btn" onclick="showU('DERİN DEVLET')">4. DERİN DEVLET (50 Gerçek Komut)</button>
-        <button class="nav-btn" onclick="showU('SİTE OPERASYON')">5. SİTE OPERASYON (20 Gerçek Komut)</button>
-    </div>
+    <button onclick="copyScript()">📋 KODU TEK TIKLA KOPYALA</button>
 
-    <div id="op-box">
-        <h3 id="unit-name" style="margin:0 0 10px 0; color:var(--altin);">BİRİM SEÇİLDİ</h3>
-        <div class="cmd-list" id="cmds"></div>
-        <div id="form-area">
-            <div id="inputs"></div>
-            <button class="launch-btn" onclick="run()">OPERASYONU BAŞLAT</button>
-        </div>
-    </div>
+    <textarea id="robloxScript" readonly>
+-- =============================================================================
+-- EYMEN PAŞA İMPARATORLUK DEVLET SİMÜLASYONU: TÜM SİSTEMLER ENTEGRE TEK KOD
+-- =============================================================================
+
+local Players = game:GetService("Players")
+local Teams = game:GetService("Teams")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
+
+-- -----------------------------------------------------------------------------
+-- 1. ADIM: TÜM BRANŞLARIN VE ORDU TAKIMLARININ KURULUMU
+-- -----------------------------------------------------------------------------
+local function createTeam(name, color)
+	if not Teams:FindFirstChild(name) then
+		local newTeam = Instance.new("Team")
+		newTeam.Name = name
+		newTeam.TeamColor = color
+		newTeam.AutoAssignable = false
+		newTeam.Parent = Teams
+	end
+end
+
+createTeam("Padişah ve Paşalar", BrickColor.new("Bright yellow"))
+createTeam("Ordu Subayları", BrickColor.new("Deep orange"))
+createTeam("Osmanlı Ordusu", BrickColor.new("Dark green"))
+createTeam("Harekat Alayı", BrickColor.new("Burgundy"))
+createTeam("Zaptiye Amirliği", BrickColor.new("Bright blue"))
+createTeam("Tayyare Bölüğü", BrickColor.new("Light blue"))
+createTeam("Bahriye Bölüğü", BrickColor.new("Deep blue"))
+createTeam("Vatandaşlar / Örgütler", BrickColor.new("White"))
+
+-- -----------------------------------------------------------------------------
+-- 2. ADIM: KODLA HARİTA İNŞA ETME MOTORU (BUILDER)
+-- -----------------------------------------------------------------------------
+local Harita = Instance.new("Folder")
+Harita.Name = "EymenPasa_Imparatorluk_Haritasi"
+Harita.Parent = workspace
+
+local function buildPart(name, pos, size, color, material, parent)
+	local part = Instance.new("Part")
+	part.Name = name
+	part.Position = pos
+	part.Size = size
+	part.BrickColor = BrickColor.new(color)
+	part.Material = material or Enum.Material.SmoothPlastic
+	part.Anchored = true
+	part.Parent = parent or Harita
+	return part
+end
+
+-- A) YOLLAR
+buildPart("Ana_Yol_Merkez", Vector3.new(0, 0.5, 0), Vector3.new(30, 1, 600), "Dark stone grey", Enum.Material.Asphalt)
+buildPart("Yol_Harekat", Vector3.new(-80, 0.5, -150), Vector3.new(130, 1, 20), "Dark stone grey", Enum.Material.Asphalt)
+buildPart("Yol_Zaptiye", Vector3.new(-80, 0.5, 100), Vector3.new(130, 1, 20), "Dark stone grey", Enum.Material.Asphalt)
+buildPart("Yol_Tayyare", Vector3.new(80, 0.5, -50), Vector3.new(130, 1, 20), "Dark stone grey", Enum.Material.Asphalt)
+buildPart("Yol_Pazar", Vector3.new(50, 0.5, 50), Vector3.new(20, 1, 100), "Dark stone grey", Enum.Material.Asphalt)
+
+-- B) HAREKAT ALAYI ÜSSÜ
+buildPart("Harekat_Ana_Bina", Vector3.new(-150, 15, -150), Vector3.new(70, 30, 70), "Burgundy", Enum.Material.Concrete)
+buildPart("Harekat_Zirhli_Garaj", Vector3.new(-150, 5, -100), Vector3.new(50, 10, 30), "Dark stone grey", Enum.Material.CorrodedMetal)
+
+-- C) ZAPTİYE AMİRLİĞİ VE HAPİSHANE
+buildPart("Zaptiye_Amirligi_Bina", Vector3.new(-150, 15, 100), Vector3.new(60, 30, 60), "Bright blue", Enum.Material.Brick)
+local HapisSpawnPart = buildPart("HapisSpawn", Vector3.new(-150, 3, 120), Vector3.new(20, 1, 20), "Really black", Enum.Material.CorrodedMetal)
+buildPart("Hapis_Parmaklik_1", Vector3.new(-150, 12, 130), Vector3.new(20, 18, 1), "Medium stone grey", Enum.Material.Iron)
+
+-- D) TAYYARE BÖLÜĞÜ VE DEVASA UÇUŞ PİSTİ
+buildPart("Tayyare_Hangari", Vector3.new(150, 15, -50), Vector3.new(60, 30, 60), "Light blue", Enum.Material.Concrete)
+buildPart("Devasa_Ucus_Pisti", Vector3.new(250, 0.5, -50), Vector3.new(200, 1, 80), "Mid gray", Enum.Material.Concrete)
+
+-- E) DEVAŞA YILDIZ SARAYI
+local Saray = buildPart("Yildiz_Sarayi_Ana", Vector3.new(0, 35, -250), Vector3.new(160, 70, 120), "Pastel Yellow", Enum.Material.Marble)
+buildPart("Saray_Kirmizi_Hali_Yol", Vector3.new(0, 0.5, -140), Vector3.new(30, 1, 100), "Crimson", Enum.Material.Fabric)
+
+-- Saray İçi Odalar
+buildPart("Padişah_Odasi", Vector3.new(0, 50, -250), Vector3.new(40, 20, 40), "Bright yellow", Enum.Material.Marble)
+buildPart("Meclis_Kurulu_1", Vector3.new(-50, 20, -250), Vector3.new(35, 15, 30), "White", Enum.Material.WoodPlanks)
+buildPart("Meclis_Kurulu_2", Vector3.new(-50, 20, -210), Vector3.new(35, 15, 30), "White", Enum.Material.WoodPlanks)
+buildPart("Meclis_Kurulu_3", Vector3.new(-50, 20, -170), Vector3.new(35, 15, 30), "White", Enum.Material.WoodPlanks)
+buildPart("Basbakan_Vekili_Odasi", Vector3.new(50, 20, -250), Vector3.new(35, 15, 30), "Dark orange", Enum.Material.WoodPlanks)
+buildPart("Osmanlı_Ordusu_Odası", Vector3.new(50, 20, -210), Vector3.new(35, 15, 30), "Dark green", Enum.Material.WoodPlanks)
+buildPart("Ordu_Pasalari_Odasi", Vector3.new(50, 20, -170), Vector3.new(35, 15, 30), "Gold", Enum.Material.WoodPlanks)
+buildPart("Ordu_Subaylari_Odasi", Vector3.new(0, 20, -250), Vector3.new(40, 15, 30), "Red reddish", Enum.Material.WoodPlanks)
+
+-- F) DENETİM, STS VE EĞİTİM ALANI
+buildPart("Egitim_Ve_Talim_Alani", Vector3.new(-60, 0.5, -30), Vector3.new(80, 1, 80), "Dark green", Enum.Material.Grass)
+buildPart("STS_Cizgisi_1", Vector3.new(-60, 1.1, -10), Vector3.new(60, 0.5, 2), "White", Enum.Material.SmoothPlastic)
+buildPart("Denetim_Alani_Zemin", Vector3.new(0, 0.5, -80), Vector3.new(50, 1, 40), "Dark stone grey", Enum.Material.Concrete)
+
+-- G) PAZAR YERİ VE TEZGAHLAR
+buildPart("Pazar_Yeri_Zemin", Vector3.new(80, 0.5, 50), Vector3.new(60, 1, 60), "Red reddish", Enum.Material.WoodPlanks)
+for i = 1, 4 do
+	buildPart("Tezgah_"..i, Vector3.new(60 + (i*10), 3, 50), Vector3.new(6, 4, 10), "Red reddish", Enum.Material.Wood)
+end
+
+-- H) BAHRİYE ENTEGRESİ VE STRATEJİK ADALAR
+buildPart("Kocaman_Bahriye_Denizi", Vector3.new(0, -3, 500), Vector3.new(1600, 4, 600), "Bright blue", Enum.Material.Water)
+buildPart("Ingiliz_Adasi_Zemin", Vector3.new(-300, 10, 500), Vector3.new(150, 20, 150), "Sand green", Enum.Material.Grass)
+buildPart("Ingiliz_Kalesi_Bina", Vector3.new(-300, 30, 500), Vector3.new(50, 30, 50), "Medium stone grey", Enum.Material.Slate)
+buildPart("Ulke_Kurma_Adasi_Zemin", Vector3.new(300, 10, 500), Vector3.new(180, 20, 180), "Dark green", Enum.Material.Grass)
+local Direk = buildPart("Bayrak_Diregi", Vector3.new(300, 30, 500), Vector3.new(2, 40, 2), "White", Enum.Material.Iron)
+local Bayrak = buildPart("Ada_Bayragi", Vector3.new(306, 45, 500), Vector3.new(10, 6, 1), "Really red", Enum.Material.Fabric)
+
+-- -----------------------------------------------------------------------------
+-- 3. ADIM: LIDERSTATS, 10 DAKİKADA BİR MAAŞ VE KAFADAKİ ÖRGÜT TAGI
+-- -----------------------------------------------------------------------------
+local OrgutSistemiData = {}
+
+Players.PlayerAdded:Connect(function(player)
+	local leaderstats = Instance.new("Folder")
+	leaderstats.Name = "leaderstats"
+	leaderstats.Parent = player
+
+	local akce = Instance.new("IntValue")
+	akce.Name = "Akçe"
+	akce.Value = 1000
+	akce.Parent = leaderstats
+
+	local orgutVal = Instance.new("StringValue")
+	orgutVal.Name = "Örgüt"
+	orgutVal.Value = "Yok"
+	orgutVal.Parent = player
+	
+	player.CharacterAdded:Connect(function(char)
+		local head = char:WaitForChild("Head")
+		local billboard = Instance.new("BillboardGui")
+		billboard.Size = UDim2.new(0, 200, 0, 50)
+		billboard.StudsOffset = Vector3.new(0, 3, 0)
+		billboard.Name = "OrgutYazisiTag"
+		
+		local textLabel = Instance.new("TextLabel")
+		textLabel.Size = UDim2.new(1, 0, 1, 0)
+		textLabel.BackgroundTransparency = 1
+		textLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
+		textLabel.TextScaled = true
+		textLabel.Font = Enum.Font.SourceSansBold
+		textLabel.Text = "Örgüt: " .. orgutVal.Value
+		textLabel.Parent = billboard
+		billboard.Parent = head
+		
+		orgutVal.Changed:Connect(function(newVal)
+			textLabel.Text = "Örgüt: " .. newVal
+		end)
+	end)
+
+	task.spawn(function()
+		while task.wait(600) do
+			if player and player:Parent then
+				akce.Value = akce.Value + 250
+			end
+		end
+	end)
+end)
+
+-- -----------------------------------------------------------------------------
+-- 4. ADIM: AĞ BAĞLANTILARI VE SEVİYE ERİŞİMLERİ (REMOTE EVENTS)
+-- -----------------------------------------------------------------------------
+local HapisEvent = ReplicatedStorage:FindFirstChild("HapisEvent") or Instance.new("RemoteEvent")
+HapisEvent.Name = "HapisEvent"
+HapisEvent.Parent = ReplicatedStorage
+
+local OrgutEvent = ReplicatedStorage:FindFirstChild("OrgutEvent") or Instance.new("RemoteEvent")
+OrgutEvent.Name = "OrgutEvent"
+OrgutEvent.Parent = ReplicatedStorage
+
+HapisEvent.OnServerEvent:Connect(function(zaptiye, targetPlayerName, sure, sebep)
+	if zaptiye.Team and zaptiye.Team.Name == "Zaptiye Amirliği" then
+		local mahkum = Players:FindFirstChild(targetPlayerName)
+		if mahkum and mahkum.Character then
+			local eskiTakim = mahkum.Team
+			mahkum.Team = Teams["Vatandaşlar / Örgütler"]
+			mahkum.Character:MoveTo(HapisSpawnPart.Position + Vector3.new(0, 3, 0))
+			
+			task.wait(tonumber(sure) or 10)
+			
+			if mahkum and mahkum:Parent then
+				mahkum.Team = eskiTakim
+				local anaSpawn = workspace:FindFirstChild("SpawnLocation")
+				if anaSpawn then mahkum.Character:MoveTo(anaSpawn.Position) end
+			end
+		end
+	end
+end)
+
+OrgutEvent.OnServerEvent:Connect(function(player, action, orgutName, orgutAmac)
+	if not player:FindFirstChild("leaderstats") or not player.leaderstats:FindFirstChild("Akçe") then return end
+	local akce = player.leaderstats.Akçe
+	if action == "Kur" and akce.Value >= 500 and player.Örgüt.Value == "Yok" then
+		akce.Value = akce.Value - 500
+		player.Örgüt.Value = orgutName
+		OrgutSistemiData[orgutName] = {Lider = player.Name, Amac = orgutAmac, Uyeler = {player.Name}}
+		OrgutEvent:FireAllClients("Guncelle", OrgutSistemiData)
+	elseif action == "Katil" and OrgutSistemiData[orgutName] and player.Örgüt.Value == "Yok" then
+		player.Örgüt.Value = orgutName
+		table.insert(OrgutSistemiData[orgutName].Uyeler, player.Name)
+		OrgutEvent:FireAllClients("Guncelle", OrgutSistemiData)
+	end
+end)
+
+-- -----------------------------------------------------------------------------
+-- 5. ADIM: EKRAN ARAYÜZLERİ (GUI) OTOMATİK YÜKLEME
+-- -----------------------------------------------------------------------------
+Players.PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(function()
+		local playerGui = player:WaitForChild("PlayerGui")
+		if playerGui:FindFirstChild("EymenPasa_ArayuzSistemi") then return end
+		
+		local ScreenGui = Instance.new("ScreenGui")
+		ScreenGui.Name = "EymenPasa_ArayuzSistemi"
+		ScreenGui.ResetOnSpawn = false
+		ScreenGui.Parent = playerGui
+
+		-- KELEPÇE SİSTEMİ
+		local KelepceBtn = Instance.new("TextButton")
+		KelepceBtn.Size = UDim2.new(0, 55, 0, 55)
+		KelepceBtn.Position = UDim2.new(0, 15, 0.5, -27)
+		KelepceBtn.BackgroundColor3 = Color3.fromRGB(0, 70, 180)
+		KelepceBtn.Text = "⛓️"
+		KelepceBtn.TextSize = 28
+		KelepceBtn.TextColor3 = Color3.new(1,1,1)
+		KelepceBtn.Visible = false
+		KelepceBtn.Parent = ScreenGui
+
+		local HapisFrame = Instance.new("Frame")
+		HapisFrame.Size = UDim2.new(0, 240, 0, 190)
+		HapisFrame.Position = UDim2.new(0, 85, 0.5, -95)
+		HapisFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		HapisFrame.Visible = false
+		HapisFrame.Parent = ScreenGui
+
+		local InpSucluy = Instance.new("TextBox")
+		InpSucluy.Size = UDim2.new(1, -20, 0, 30)
+		InpSucluy.Position = UDim2.new(0, 10, 0, 10)
+		InpSucluy.PlaceholderText = "Suçlu Oyuncu Adı..."
+		InpSucluy.Parent = HapisFrame
+
+		local InpSure = Instance.new("TextBox")
+		InpSure.Size = UDim2.new(1, -20, 0, 30)
+		InpSure.Position = UDim2.new(0, 10, 0, 45)
+		InpSure.PlaceholderText = "Hapis Süresi..."
+		InpSure.Parent = HapisFrame
+
+		local InpSebep = Instance.new("TextBox")
+		InpSebep.Size = UDim2.new(1, -20, 0, 30)
+		InpSebep.Position = UDim2.new(0, 10, 0, 80)
+		InpSebep.PlaceholderText = "Hapis Sebebi..."
+		InpSebep.Parent = HapisFrame
+
+		local BtnHapseAt = Instance.new("TextButton")
+		BtnHapseAt.Size = UDim2.new(1, -20, 0, 35)
+		BtnHapseAt.Position = UDim2.new(0, 10, 0, 120)
+		BtnHapseAt.BackgroundColor3 = Color3.fromRGB(180, 0, 0)
+		BtnHapseAt.Text = "CEZALANDIR"
+		BtnHapseAt.TextColor3 = Color3.new(1,1,1)
+		BtnHapseAt.Parent = HapisFrame
+
+		task.spawn(function()
+			while task.wait(2) do
+				if player.Team and player.Team.Name == "Zaptiye Amirliği" then
+					KelepceBtn.Visible = true
+				else
+					KelepceBtn.Visible = false
+					HapisFrame.Visible = false
+				end
+			end
+		end)
+
+		KelepceBtn.MouseButton1Click:Connect(function() HapisFrame.Visible = not HapisFrame.Visible end)
+		BtnHapseAt.MouseButton1Click:Connect(function()
+			if InpSucluy.Text ~= "" and InpSure.Text ~= "" then
+				HapisEvent:FireServer(InpSucluy.Text, InpSure.Text, InpSebep.Text)
+				HapisFrame.Visible = false
+			end
+		end)
+
+		-- ÖRGÜT MENÜSÜ
+		local OrgutMenuBtn = Instance.new("TextButton")
+		OrgutMenuBtn.Size = UDim2.new(0, 110, 0, 40)
+		OrgutMenuBtn.Position = UDim2.new(1, -125, 0, 15)
+		OrgutMenuBtn.BackgroundColor3 = Color3.fromRGB(20, 100, 20)
+		OrgutMenuBtn.Text = "🍁 Örgüt Menüsü"
+		OrgutMenuBtn.TextColor3 = Color3.new(1,1,1)
+		OrgutMenuBtn.Font = Enum.Font.SourceSansBold
+		OrgutMenuBtn.Parent = ScreenGui
+
+		local OrgutFrame = Instance.new("Frame")
+		OrgutFrame.Size = UDim2.new(0, 260, 0, 220)
+		OrgutFrame.Position = UDim2.new(1, -285, 0, 65)
+		OrgutFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+		OrgutFrame.Visible = false
+		OrgutFrame.Parent = ScreenGui
+
+		local TxOrgutIsim = Instance.new("TextBox")
+		TxOrgutIsim.Size = UDim2.new(1, -20, 0, 30)
+		TxOrgutIsim.Position = UDim2.new(0, 10, 0, 10)
+		TxOrgutIsim.PlaceholderText = "Örgüt Adı gir..."
+		TxOrgutIsim.Parent = OrgutFrame
+
+		local TxOrgutAmac = Instance.new("TextBox")
+		TxOrgutAmac.Size = UDim2.new(1, -20, 0, 30)
+		TxOrgutAmac.Position = UDim2.new(0, 10, 0, 45)
+		TxOrgutAmac.PlaceholderText = "Örgüt Amacı ne?..."
+		TxOrgutAmac.Parent = OrgutFrame
+
+		local BtnKurOnay = Instance.new("TextButton")
+		BtnKurOnay.Size = UDim2.new(1, -20, 0, 35)
+		BtnKurOnay.Position = UDim2.new(0, 10, 0, 85)
+		BtnKurOnay.BackgroundColor3 = Color3.fromRGB(210, 140, 0)
+		BtnKurOnay.Text = "ÖRGÜT KUR (500 AKÇE)"
+		BtnKurOnay.TextColor3 = Color3.new(1,1,1)
+		BtnKurOnay.Parent = OrgutFrame
+
+		local ScrollList = Instance.new("ScrollingFrame")
+		ScrollList.Size = UDim2.new(1, -20, 0, 75)
+		ScrollList.Position = UDim2.new(0, 10, 0, 130)
+		ScrollList.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+		ScrollList.CanvasSize = UDim2.new(0, 0, 3, 0)
+		ScrollList.Parent = OrgutFrame
+
+		OrgutMenuBtn.MouseButton1Click:Connect(function() OrgutFrame.Visible = not OrgutFrame.Visible end)
+		BtnKurOnay.MouseButton1Click:Connect(function()
+			if TxOrgutIsim.Text ~= "" and TxOrgutAmac.Text ~= "" then
+				OrgutEvent:FireServer("Kur", TxOrgutIsim.Text, TxOrgutAmac.Text)
+				OrgutFrame.Visible = false
+			end
+		end)
+
+		OrgutEvent.OnClientEvent:Connect(function(act, serverData)
+			if act == "Guncelle" then
+				for _, c in pairs(ScrollList:GetChildren()) do c:Destroy() end
+				local yOffset = 0
+				for oName, info in pairs(serverData) do
+					local b = Instance.new("TextButton")
+					b.Size = UDim2.new(1, 0, 0, 25)
+					b.Position = UDim2.new(0, 0, 0, yOffset)
+					b.BackgroundColor3 = Color3.fromRGB(60,60,60)
+					b.Text = "Katıl: " .. oName
+					b.TextColor3 = Color3.new(1,1,1)
+					b.Parent = ScrollList
+					b.MouseButton1Click:Connect(function()
+						OrgutEvent:FireServer("Katil", oName)
+						OrgutFrame.Visible = false
+					end)
+					yOffset = yOffset + 25
+				end
+			end
+		end)
+	end)
+end)
+    </textarea>
 </div>
 
 <script>
-    const data = {
-        "BEYAZ HACKER": Array.from({length: 50}, (_, i) => `Defans-Sistemi-${i+1}`),
-        "SİBER ŞUBE": Array.from({length: 50}, (_, i) => `Adli-Sorgu-${i+1}`),
-        "DARK WEB": Array.from({length: 20}, (_, i) => `Anonim-Node-${i+1}`),
-        "DERİN DEVLET": Array.from({length: 50}, (_, i) => `İstihbarat-Tim-${i+1}`),
-        "SİTE OPERASYON": Array.from({length: 20}, (_, i) => `Web-Müdahale-${i+1}`)
-    };
-
-    // Gerçek İşlevsel Atamalar
-    data["SİBER ŞUBE"][0] = "İSİMDEN KİMLİK & ADRES SORGUSU";
-    data["SİBER ŞUBE"][1] = "TC NO ANALİZ VE DOĞRULAMA";
-    data["DERİN DEVLET"][0] = "C31K ÖRGÜT YAPISI DEŞİFRE";
-    data["DERİN DEVLET"][1] = "VATAN HAİNİ DİJİTAL TAKİBİ";
-    data["SİTE OPERASYON"][0] = "SİTE IP VE KONUM VERİSİ ÇEK";
-
-    let selCmd = "";
-
-    function openSys() {
-        if(document.getElementById('p').value === "1881 1922") {
-            document.getElementById('auth').style.display = 'none';
-            document.getElementById('panel').style.display = 'block';
-            addLog("Karargah aktif. Anonimlik %100 sağlandı.", "#00ff41");
-        } else { alert("YETKİSİZ ERİŞİM DENEMESİ!"); }
-    }
-
-    function addLog(m, c="#fff") {
-        const s = document.getElementById('log-screen');
-        s.innerHTML += `<span style="color:${c}">[SONUÇ] ${m}</span><br>`;
-        s.scrollTop = s.scrollHeight;
-    }
-
-    function showU(u) {
-        document.getElementById('op-box').style.display = 'block';
-        document.getElementById('form-area').style.display = 'none';
-        document.getElementById('unit-name').innerText = u;
-        const cL = document.getElementById('cmds');
-        cL.innerHTML = "";
-        data[u].forEach(c => cL.innerHTML += `<button class="c-btn" onclick="setOp('${c}')">${c}</button>`);
-        addLog(`${u} operasyon listesi yüklendi.`, "var(--altin)");
-    }
-
-    function setOp(c) {
-        selCmd = c;
-        document.getElementById('form-area').style.display = 'block';
-        document.getElementById('inputs').innerHTML = `<p style="color:var(--mavi); font-size:12px;">HEDEF BİLGİLERİNİ GİRİN:</p>
-            <input type="text" id="target" class="h-input" placeholder="İsim / IP / URL / Nick">
-            <input type="text" id="extra" class="h-input" placeholder="Ek Detay / Şehir / Not">`;
-    }
-
-    function run() {
-        const t = document.getElementById('target').value;
-        if(!t) return alert("HEDEF GİRİLMELİ!");
-        addLog(`${selCmd} başlatıldı. Hedef: ${t}`, "var(--kan)");
-        
-        setTimeout(() => {
-            if(selCmd.includes("SORGUSU") || selCmd.includes("ANALİZ") || selCmd.includes("TAKİBİ")) {
-                addLog(`BİLGİ: ${t} için OSINT taraması yapılıyor...`, "cyan");
-                window.open(`https://www.google.com/search?q="${t}"`, '_blank');
-                addLog(`BAŞARI: ${t} hakkındaki tüm sızıntı ve veriler listelendi.`, "#00ff41");
-            } else if(selCmd.includes("IP") || selCmd.includes("VERİSİ")) {
-                window.open(`https://ipinfo.io/${t}`, '_blank');
-                addLog(`BAŞARI: ${t} konum verileri çekildi.`, "#00ff41");
-            } else if(selCmd.includes("DEŞİFRE") || selCmd.includes("ÖRGÜT")) {
-                addLog(`İHBAR: ${t} verileri anonim olarak EGM/Siber suçlara iletildi.`, "var(--kan)");
-                window.open("https://www.egm.gov.tr/siber/ihbar", "_blank");
-            } else {
-                addLog(`${selCmd} işlemi başarıyla tamamlandı. İzler silindi.`, "#00ff41");
-            }
-        }, 1500);
-    }
+function copyScript() {
+    var copyText = document.getElementById("robloxScript");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* Mobil cihazlar için */
+    navigator.clipboard.writeText(copyText.value);
+    alert("Roblox Script Başarıyla Kopyalandı! Developer arkadaşına ulaştırabilirsin paşam.");
+}
 </script>
+
 </body>
 </html>
-
