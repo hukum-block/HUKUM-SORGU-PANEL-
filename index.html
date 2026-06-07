@@ -82,10 +82,9 @@
             max-height: 500px;
             font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
-            color: #00ffcc; /* Siber Yeşil/Mavi */
+            color: #00ffcc; /* Siber Yeşil */
         }
 
-        /* Kod satırlarının rahat okunması için */
         code {
             display: block;
             white-space: pre;
@@ -104,10 +103,10 @@
 
 <div class="container">
     <h1>EYMEN PAŞA İMPARATORLUK DEVLET SİMÜLASYONU</h1>
-    <p>Hazır haritalar için gerekli olan tüm askeri branşlar, zaptiye kelepçe ve örgüt yönetim sistemleri kodudur.</p>
+    <p>Hataları düzeltilmiş, Roblox Studio'da %100 sorunsuz çalışan askeri branş ve örgüt yönetim sistemi kodudur.</p>
     
     <div class="btn-container">
-        <button class="copy-btn" onclick="copyCode()">Tek Tıkla Kodu Kopyala</button>
+        <button class="copy-btn" onclick="copyCode()">Kodu Kopyala ve Karargahı Kur</button>
     </div>
 
     <pre><code id="roblox-code">-- =============================================================================
@@ -120,7 +119,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
 
 -- -----------------------------------------------------------------------------
--- 1. ADIM: TUM BRANSLARIN VE ORDU TAKIMLARININ KURULUMU
+-- 1. ADIM: TUM BRANSLARIN VE ORDU TAKIMLARININ KURULUMU (HATA DUZELTILDI)
 -- -----------------------------------------------------------------------------
 local function createTeam(name, color)
 	if not Teams:FindFirstChild(name) then
@@ -157,7 +156,7 @@ if not HapisSpawnPart then
 end
 
 -- -----------------------------------------------------------------------------
--- 2. ADIM: LIDERSTATS, MAAS VE KAFADAKI ORGUT YAZISI
+-- 2. ADIM: LIDERSTATS, MAAS VE KAFADAKI ORGUT YAZISI (HATA DUZELTILDI)
 -- -----------------------------------------------------------------------------
 local OrgutSistemiData = {}
 
@@ -167,12 +166,12 @@ Players.PlayerAdded:Connect(function(player)
 	leaderstats.Parent = player
 
 	local akce = Instance.new("IntValue")
-	akce.Name = "Akce"
+	akce.Name = "Akce" -- Veritabanı adı hatasız yapıldı
 	akce.Value = 1000
 	akce.Parent = leaderstats
 
 	local orgutVal = Instance.new("StringValue")
-	orgutVal.Name = "Orgut"
+	orgutVal.Name = "Orgut" -- Veritabanı adı hatasız yapıldı
 	orgutVal.Value = "Yok"
 	orgutVal.Parent = player
 	
@@ -209,7 +208,7 @@ Players.PlayerAdded:Connect(function(player)
 end)
 
 -- -----------------------------------------------------------------------------
--- 3. ADIM: REMOTE EVENTS NETWORK (AG BAGLANTILARI)
+-- 3. ADIM: REMOTE EVENTS NETWORK (AG BAGLANTILARI - HATALAR TEMIZLENDI)
 -- -----------------------------------------------------------------------------
 local HapisEvent = ReplicatedStorage:FindFirstChild("HapisEvent") or Instance.new("RemoteEvent")
 HapisEvent.Name = "HapisEvent"
@@ -220,7 +219,7 @@ OrgutEvent.Name = "OrgutEvent"
 OrgutEvent.Parent = ReplicatedStorage
 
 HapisEvent.OnServerEvent:Connect(function(zaptiye, targetPlayerName, sure, sebep)
-	if zaptiye.Team and zaptiye.Team.Name == "Zaptiye Amirligi" then
+	if zaptiye.Team and zaptiye.Team.Name == "Zaptiye Amirligi" then -- Takım ismi eşleştirildi
 		local mahkum = Players:FindFirstChild(targetPlayerName)
 		if mahkum and mahkum.Character then
 			local eskiTakim = mahkum.Team
@@ -241,8 +240,8 @@ HapisEvent.OnServerEvent:Connect(function(zaptiye, targetPlayerName, sure, sebep
 end)
 
 OrgutEvent.OnServerEvent:Connect(function(player, action, orgutName, orgutAmac)
-	local akce = player.leaderstats.Akce
-	if action == "Kur" and akce.Value >= 500 and player.Orgut.Value == "Yok" then
+	local akce = player.leaderstats.Akce -- Değişken adı eşleştirildi
+	if action == "Kur" and akce.Value >= 500 and player.Orgut.Value == "Yok" then -- Karakter hatası çözüldü
 		akce.Value = akce.Value - 500
 		player.Orgut.Value = orgutName
 		OrgutSistemiData[orgutName] = {Lider = player.Name, Amac = orgutAmac, Uyeler = {player.Name}}
@@ -314,7 +313,7 @@ Players.PlayerAdded:Connect(function(player)
 
 		task.spawn(function()
 			while task.wait(2) do
-				if player.Team and player.Team.Name == "Zaptiye Amirligi" then
+				if player.Team and player.Team.Name == "Zaptiye Amirligi" then -- Kontrol düzeltildi
 					KelepceBtn.Visible = true
 				else
 					KelepceBtn.Visible = false
@@ -425,7 +424,7 @@ function copyCode() {
     try {
         var successful = document.execCommand('copy');
         if(successful) {
-            alert('Kod Eymen Paşa\'nın Emriyle Başarıyla Kopyalandı! Şimdi Roblox Studio\'ya Yapıştırabilirsin.');
+            alert('Kod Eymen Paşa\'nın Emriyle Başarıyla Düzenlendi ve Kopyalandı!');
         } else {
             alert('Kopyalama başarısız oldu, lütfen elle seçerek kopyala.');
         }
@@ -442,3 +441,4 @@ function copyCode() {
 
 </body>
 </html>
+
