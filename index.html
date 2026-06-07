@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eymen Paşa İmparatorluk Simülasyonu - HÜKÜM MERKEZİ</title>
+    <title>HÜKÜM SORGU PANEL - SİMÜLASYON SİSTEMLERİ</title>
     <style>
+        /* Eymen Paşa'nın Şanına Yakışır Askeri ve Siber Tema */
         body {
-            background-color: #121212;
-            color: #e0e0e0;
+            background-color: #0d0f12;
+            color: #e0e5ec;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 20px;
@@ -15,102 +16,102 @@
             flex-direction: column;
             align-items: center;
         }
+
         .container {
             max-width: 900px;
             width: 100%;
-            background-color: #1e1e1e;
-            border: 2px solid #d4af37; /* Altın Sarısı Sınır */
+            background: #14181f;
+            border: 2px solid #8b0000; /* Devlet-i Aliyye Kırmızısı */
             border-radius: 8px;
             padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
         }
+
         h1 {
-            color: #d4af37;
+            color: #d4af37; /* Altın Sarısı */
             text-align: center;
-            margin-top: 0;
             text-transform: uppercase;
             letter-spacing: 2px;
-            border-bottom: 1px solid #d4af37;
+            margin-top: 0;
+            border-bottom: 2px solid #3a4454;
             padding-bottom: 10px;
         }
+
         p {
-            line-height: 1.6;
-            font-size: 16px;
+            text-align: center;
+            font-size: 1.1em;
+            color: #a0aab8;
         }
-        .alert-box {
-            background-color: #2a1a1a;
-            border-left: 5px solid #ff4444;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-        .code-header {
+
+        .btn-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #2d2d2d;
-            padding: 10px 15px;
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
-            border-bottom: 1px solid #444;
+            justify-content: center;
+            margin: 20px 0;
         }
-        .code-title {
-            font-weight: bold;
-            color: #d4af37;
-        }
+
         .copy-btn {
-            background-color: #d4af37;
-            color: #121212;
+            background-color: #8b0000;
+            color: #ffffff;
             border: none;
-            padding: 8px 16px;
+            padding: 12px 30px;
+            font-size: 16px;
             font-weight: bold;
-            border-radius: 4px;
             cursor: pointer;
-            transition: background 0.2s;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
+
         .copy-btn:hover {
-            background-color: #fff;
+            background-color: #b30000;
+            box-shadow: 0 0 15px #ff0000;
+            transform: translateY(-2px);
         }
+
+        .copy-btn:active {
+            transform: translateY(1px);
+        }
+
         pre {
-            margin: 0;
-            background-color: #050505;
+            background-color: #07090c;
+            border: 1px solid #2d3748;
             padding: 15px;
-            border-bottom-left-radius: 6px;
-            border-bottom-right-radius: 6px;
+            border-radius: 6px;
             overflow-x: auto;
-            border: 1px solid #2d2d2d;
-        }
-        code {
+            max-height: 500px;
             font-family: 'Courier New', Courier, monospace;
-            color: #4af626; /* Klasik Yeşil Kod Rengi */
             font-size: 14px;
+            color: #00ffcc; /* Siber Yeşil/Mavi */
+        }
+
+        /* Kod satırlarının rahat okunması için */
+        code {
+            display: block;
             white-space: pre;
         }
-        footer {
+
+        .footer {
             text-align: center;
             margin-top: 20px;
-            color: #777;
-            font-size: 12px;
+            font-size: 0.9em;
+            color: #556275;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>⚔️ EYMEN PAŞA İMPARATORLUK DEVLET SİMÜLASYONU ⚔️</h1>
+    <h1>EYMEN PAŞA İMPARATORLUK DEVLET SİMÜLASYONU</h1>
+    <p>Hazır haritalar için gerekli olan tüm askeri branşlar, zaptiye kelepçe ve örgüt yönetim sistemleri kodudur.</p>
     
-    <p><strong>Silah Arkadaşım,</strong> oyunun tüm sistemlerini, harita inşasını, ekonomisini ve zaptiye/örgüt mekaniklerini içeren ana sunucu kodları aşağıdadır.</p>
-    
-    <div class="alert-box">
-        <strong>⚠️ KURULUM TALİMATI:</strong> Aşağıdaki kodun tamamını kopyala. Roblox Studio'da <strong>ServerScriptService</strong> içerisine bir normal <code>Script</code> aç ve bu kodu aynen içine yapıştır!
+    <div class="btn-container">
+        <button class="copy-btn" onclick="copyCode()">Tek Tıkla Kodu Kopyala</button>
     </div>
 
-    <div class="code-header">
-        <span class="code-title">Roblox Ana Sistem Kodları (Lua)</span>
-        <button class="copy-btn" onclick="copyCode()">Kodu Kopyala</button>
-    </div>
     <pre><code id="roblox-code">-- =============================================================================
--- EYMEN PAŞA İMPARATORLUK DEVLET SİMÜLASYONU: TÜM SİSTEMLER VE HARİTA TEK KODDA
+-- EYMEN PASA IMPARATORLUK DEVLET SIMULASYONU: SADECE SISTEMLER (HAZIR MAP ICIN)
 -- =============================================================================
 
 local Players = game:GetService("Players")
@@ -119,7 +120,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
 
 -- -----------------------------------------------------------------------------
--- 1. ADIM: TÜM BRANŞLARIN VE ORDU TAKIMLARININ KURULUMU
+-- 1. ADIM: TUM BRANSLARIN VE ORDU TAKIMLARININ KURULUMU
 -- -----------------------------------------------------------------------------
 local function createTeam(name, color)
 	if not Teams:FindFirstChild(name) then
@@ -131,91 +132,32 @@ local function createTeam(name, color)
 	end
 end
 
-createTeam("Padişah ve Paşalar", BrickColor.new("Bright yellow"))
-createTeam("Ordu Subayları", BrickColor.new("Deep orange"))
-createTeam("Osmanlı Ordusu", BrickColor.new("Dark green"))
-createTeam("Harekat Alayı", BrickColor.new("Burgundy"))
-createTeam("Zaptiye Amirliği", BrickColor.new("Bright blue"))
-createTeam("Tayyare Bölüğü", BrickColor.new("Light blue"))
-createTeam("Bahriye Bölüğü", BrickColor.new("Deep blue"))
-createTeam("Vatandaşlar / Örgütler", BrickColor.new("White"))
+createTeam("Padisah ve Pasalar", BrickColor.new("Bright yellow"))
+createTeam("Ordu Subaylari", BrickColor.new("Deep orange"))
+createTeam("Osmanli Ordusu", BrickColor.new("Dark green"))
+createTeam("Harekat Alayi", BrickColor.new("Burgundy"))
+createTeam("Zaptiye Amirligi", BrickColor.new("Bright blue"))
+createTeam("Tayyare Bolugu", BrickColor.new("Light blue"))
+createTeam("Bahriye Bolugu", BrickColor.new("Deep blue"))
+createTeam("Vatandaslar / Orgutler", BrickColor.new("White"))
 
 -- -----------------------------------------------------------------------------
--- 2. ADIM: KODLA HARİTA İNŞA ETME MOTORU (BUILDER)
+-- HAZIR HARITA ICIN GEREKLI HAPISHANE NOKTASI
 -- -----------------------------------------------------------------------------
-local Harita = Instance.new("Folder")
-Harita.Name = "EymenPasa_Imparatorluk_Haritasi"
-Harita.Parent = workspace
-
-local function buildPart(name, pos, size, color, material, parent)
-	local part = Instance.new("Part")
-	part.Name = name
-	part.Position = pos
-	part.Size = size
-	part.BrickColor = BrickColor.new(color)
-	part.Material = material or Enum.Material.SmoothPlastic
-	part.Anchored = true
-	part.Parent = parent or Harita
-	return part
+local HapisSpawnPart = workspace:FindFirstChild("HapisSpawn")
+if not HapisSpawnPart then
+	HapisSpawnPart = Instance.new("Part")
+	HapisSpawnPart.Name = "HapisSpawn"
+	HapisSpawnPart.Position = Vector3.new(0, -20, 0)
+	HapisSpawnPart.Size = Vector3.new(5, 1, 5)
+	HapisSpawnPart.Anchored = true
+	HapisSpawnPart.Transparency = 1
+	HapisSpawnPart.CanCollide = false
+	HapisSpawnPart.Parent = workspace
 end
 
--- A) YOLLAR (Arabalar Rahat Gitsin Diye Geniş Çizildi)
-buildPart("Ana_Yol_Merkez", Vector3.new(0, 0.5, 0), Vector3.new(30, 1, 600), "Dark stone grey", Enum.Material.Asphalt)
-buildPart("Yol_Harekat", Vector3.new(-80, 0.5, -150), Vector3.new(130, 1, 20), "Dark stone grey", Enum.Material.Asphalt)
-buildPart("Yol_Zaptiye", Vector3.new(-80, 0.5, 100), Vector3.new(130, 1, 20), "Dark stone grey", Enum.Material.Asphalt)
-buildPart("Yol_Tayyare", Vector3.new(80, 0.5, -50), Vector3.new(130, 1, 20), "Dark stone grey", Enum.Material.Asphalt)
-buildPart("Yol_Pazar", Vector3.new(50, 0.5, 50), Vector3.new(20, 1, 100), "Dark stone grey", Enum.Material.Asphalt)
-
--- B) HAREKAT ALAYI ÜSSÜ
-buildPart("Harekat_Ana_Bina", Vector3.new(-150, 15, -150), Vector3.new(70, 30, 70), "Burgundy", Enum.Material.Concrete)
-buildPart("Harekat_Zirhli_Garaj", Vector3.new(-150, 5, -100), Vector3.new(50, 10, 30), "Dark stone grey", Enum.Material.CorrodedMetal)
-
--- C) ZAPTİYE AMİRLİĞİ VE HAPİSHANE
-buildPart("Zaptiye_Amirligi_Bina", Vector3.new(-150, 15, 100), Vector3.new(60, 30, 60), "Bright blue", Enum.Material.Brick)
-local HapisSpawnPart = buildPart("HapisSpawn", Vector3.new(-150, 3, 120), Vector3.new(20, 1, 20), "Really black", Enum.Material.CorrodedMetal)
-buildPart("Hapis_Parmaklik_1", Vector3.new(-150, 12, 130), Vector3.new(20, 18, 1), "Medium stone grey", Enum.Material.Iron)
-
--- D) TAYYARE BÖLÜĞÜ VE DEVASA UÇUŞ PİSTİ
-buildPart("Tayyare_Hangari", Vector3.new(150, 15, -50), Vector3.new(60, 30, 60), "Light blue", Enum.Material.Concrete)
-buildPart("Devasa_Ucus_Pisti", Vector3.new(250, 0.5, -50), Vector3.new(200, 1, 80), "Mid gray", Enum.Material.Concrete)
-
--- E) DEVAŞA YILDIZ SARAYI (İÇ DEKORASYON VE ODALAR DAHİL)
-local Saray = buildPart("Yildiz_Sarayi_Ana", Vector3.new(0, 35, -250), Vector3.new(160, 70, 120), "Pastel Yellow", Enum.Material.Marble)
-buildPart("Saray_Kirmizi_Hali_Yol", Vector3.new(0, 0.5, -140), Vector3.new(30, 1, 100), "Crimson", Enum.Material.Fabric)
-
--- Saray İçi Odalar (Bölmeler)
-buildPart("Padişah_Odasi", Vector3.new(0, 50, -250), Vector3.new(40, 20, 40), "Bright yellow", Enum.Material.Marble)
-buildPart("Meclis_Kurulu_1", Vector3.new(-50, 20, -250), Vector3.new(35, 15, 30), "White", Enum.Material.WoodPlanks)
-buildPart("Meclis_Kurulu_2", Vector3.new(-50, 20, -210), Vector3.new(35, 15, 30), "White", Enum.Material.WoodPlanks)
-buildPart("Meclis_Kurulu_3", Vector3.new(-50, 20, -170), Vector3.new(35, 15, 30), "White", Enum.Material.WoodPlanks)
-buildPart("Basbakan_Vekili_Odasi", Vector3.new(50, 20, -250), Vector3.new(35, 15, 30), "Dark orange", Enum.Material.WoodPlanks)
-buildPart("Osmanlı_Ordusu_Odası", Vector3.new(50, 20, -210), Vector3.new(35, 15, 30), "Dark green", Enum.Material.WoodPlanks)
-buildPart("Ordu_Pasalari_Odasi", Vector3.new(50, 20, -170), Vector3.new(35, 15, 30), "Gold", Enum.Material.WoodPlanks)
-buildPart("Ordu_Subaylari_Odasi", Vector3.new(0, 20, -250), Vector3.new(40, 15, 30), "Red reddish", Enum.Material.WoodPlanks)
-
--- F) DENETİM, STS VE EĞİTİM ALANI
-buildPart("Egitim_Ve_Talim_Alani", Vector3.new(-60, 0.5, -30), Vector3.new(80, 1, 80), "Dark green", Enum.Material.Grass)
-buildPart("STS_Cizgisi_1", Vector3.new(-60, 1.1, -10), Vector3.new(60, 0.5, 2), "White", Enum.Material.SmoothPlastic)
-buildPart("Denetim_Alani_Zemin", Vector3.new(0, 0.5, -80), Vector3.new(50, 1, 40), "Dark stone grey", Enum.Material.Concrete)
-
--- G) PAZAR YERİ VE TEZGAHLAR
-buildPart("Pazar_Yeri_Zemin", Vector3.new(80, 0.5, 50), Vector3.new(60, 1, 60), "Red reddish", Enum.Material.WoodPlanks)
-for i = 1, 4 do
-	buildPart("Tezgah_"..i, Vector3.new(60 + (i*10), 3, 50), Vector3.new(6, 4, 10), "Red reddish", Enum.Material.Wood)
-end
-
--- H) BAHRİYE BÖLÜĞÜ, DEVAŞA DENİZ VE ADALAR
-buildPart("Kocaman_Bahriye_Denizi", Vector3.new(0, -3, 500), Vector3.new(1600, 4, 600), "Bright blue", Enum.Material.Water)
--- İngiliz Adası (Düşman Üssü)
-buildPart("Ingiliz_Adasi_Zemin", Vector3.new(-300, 10, 500), Vector3.new(150, 20, 150), "Sand green", Enum.Material.Grass)
-buildPart("Ingiliz_Kalesi_Bina", Vector3.new(-300, 30, 500), Vector3.new(50, 30, 50), "Medium stone grey", Enum.Material.Slate)
--- Ülke Kurma Adası (Bayrak Ele Geçirme Alanı)
-buildPart("Ulke_Kurma_Adasi_Zemin", Vector3.new(300, 10, 500), Vector3.new(180, 20, 180), "Dark green", Enum.Material.Grass)
-local Direk = buildPart("Bayrak_Diregi", Vector3.new(300, 30, 500), Vector3.new(2, 40, 2), "White", Enum.Material.Iron)
-local Bayrak = buildPart("Ada_Bayragi", Vector3.new(306, 45, 500), Vector3.new(10, 6, 1), "Really red", Enum.Material.Fabric)
-
 -- -----------------------------------------------------------------------------
--- 3. ADIM: LIDERSTATS, 10 DAKİKADA BİR 250 AKÇE MAAŞ VE KAFADAKİ ÖRGÜT YAZISI
+-- 2. ADIM: LIDERSTATS, MAAS VE KAFADAKI ORGUT YAZISI
 -- -----------------------------------------------------------------------------
 local OrgutSistemiData = {}
 
@@ -225,16 +167,15 @@ Players.PlayerAdded:Connect(function(player)
 	leaderstats.Parent = player
 
 	local akce = Instance.new("IntValue")
-	akce.Name = "Akçe"
-	akce.Value = 1000 -- Başlangıç akçesi
+	akce.Name = "Akce"
+	akce.Value = 1000
 	akce.Parent = leaderstats
 
 	local orgutVal = Instance.new("StringValue")
-	orgutVal.Name = "Örgüt"
+	orgutVal.Name = "Orgut"
 	orgutVal.Value = "Yok"
 	orgutVal.Parent = player
 	
-	-- Kafanın Üstündeki Örgüt İsmi Tag Sistemi
 	player.CharacterAdded:Connect(function(char)
 		local head = char:WaitForChild("Head")
 		local billboard = Instance.new("BillboardGui")
@@ -245,7 +186,7 @@ Players.PlayerAdded:Connect(function(player)
 		local textLabel = Instance.new("TextLabel")
 		textLabel.Size = UDim2.new(1, 0, 1, 0)
 		textLabel.BackgroundTransparency = 1
-		textLabel.TextColor3 = Color3.fromRGB(255, 215, 0) -- Altın Sarısı
+		textLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
 		textLabel.TextScaled = true
 		textLabel.Font = Enum.Font.SourceSansBold
 		textLabel.Text = "Örgüt: " .. orgutVal.Value
@@ -257,7 +198,7 @@ Players.PlayerAdded:Connect(function(player)
 		end)
 	end)
 
-	-- 10 DAKİKADA BİR (600 SANİYE) OTOMATİK 250 AKÇE VEREN EKONOMİ MOTORU
+	-- 10 DAKIKADA BIR OTOMATIK 250 AKCE MAAŞ MOTORU
 	task.spawn(function()
 		while task.wait(600) do
 			if player and player:Parent then
@@ -268,32 +209,30 @@ Players.PlayerAdded:Connect(function(player)
 end)
 
 -- -----------------------------------------------------------------------------
--- 4. ADIM: SEVİYE ERİŞİM (REMOTE EVENTS) - HAPİS VE ÖRGÜT AĞ BAĞLANTILARI
+-- 3. ADIM: REMOTE EVENTS NETWORK (AG BAGLANTILARI)
 -- -----------------------------------------------------------------------------
-local HapisEvent = Instance.new("RemoteEvent")
+local HapisEvent = ReplicatedStorage:FindFirstChild("HapisEvent") or Instance.new("RemoteEvent")
 HapisEvent.Name = "HapisEvent"
 HapisEvent.Parent = ReplicatedStorage
 
-local OrgutEvent = Instance.new("RemoteEvent")
+local OrgutEvent = ReplicatedStorage:FindFirstChild("OrgutEvent") or Instance.new("RemoteEvent")
 OrgutEvent.Name = "OrgutEvent"
 OrgutEvent.Parent = ReplicatedStorage
 
 HapisEvent.OnServerEvent:Connect(function(zaptiye, targetPlayerName, sure, sebep)
-	if zaptiye.Team and zaptiye.Team.Name == "Zaptiye Amirliği" then
+	if zaptiye.Team and zaptiye.Team.Name == "Zaptiye Amirligi" then
 		local mahkum = Players:FindFirstChild(targetPlayerName)
 		if mahkum and mahkum.Character then
 			local eskiTakim = mahkum.Team
-			mahkum.Team = Teams["Vatandaşlar / Örgütler"] -- Tüm yetkileri alındı
-			mahkum.Character:MoveTo(HapisSpawnPart.Position + Vector3.new(0, 3, 0)) -- Hapishaneye ışınlama
+			mahkum.Team = Teams["Vatandaslar / Orgutler"]
+			mahkum.Character:MoveTo(HapisSpawnPart.Position + Vector3.new(0, 3, 0))
 			
-			-- Ceza Süresi Sayacı
 			task.wait(tonumber(sure) or 10)
 			
-			-- Süre bitince yetkileri geri verme ve ana spawna çekme
 			if mahkum and mahkum:Parent then
 				mahkum.Team = eskiTakim
 				local anaSpawn = workspace:FindFirstChild("SpawnLocation")
-				if anaSpawn then
+				if anaSpawn and mahkum.Character then
 					mahkum.Character:MoveTo(anaSpawn.Position)
 				end
 			end
@@ -302,21 +241,21 @@ HapisEvent.OnServerEvent:Connect(function(zaptiye, targetPlayerName, sure, sebep
 end)
 
 OrgutEvent.OnServerEvent:Connect(function(player, action, orgutName, orgutAmac)
-	local akce = player.leaderstats.Akçe
-	if action == "Kur" and akce.Value >= 500 and player.Örgüt.Value == "Yok" then
+	local akce = player.leaderstats.Akce
+	if action == "Kur" and akce.Value >= 500 and player.Orgut.Value == "Yok" then
 		akce.Value = akce.Value - 500
-		player.Örgüt.Value = orgutName
+		player.Orgut.Value = orgutName
 		OrgutSistemiData[orgutName] = {Lider = player.Name, Amac = orgutAmac, Uyeler = {player.Name}}
 		OrgutEvent:FireAllClients("Guncelle", OrgutSistemiData)
-	elseif action == "Katil" and OrgutSistemiData[orgutName] and player.Örgüt.Value == "Yok" then
-		player.Örgüt.Value = orgutName
+	elseif action == "Katil" and OrgutSistemiData[orgutName] and player.Orgut.Value == "Yok" then
+		player.Orgut.Value = orgutName
 		table.insert(OrgutSistemiData[orgutName].Uyeler, player.Name)
 		OrgutEvent:FireAllClients("Guncelle", OrgutSistemiData)
 	end
 end)
 
 -- -----------------------------------------------------------------------------
--- 5. ADIM: EKRAN ARAYÜZLERİ (GUI) OTOMATİK YÜKLEME MOTORU
+-- 4. ADIM: EKRAN ARAYUZLERI (GUI) OTOMATIK YUKLEME MOTORU
 -- -----------------------------------------------------------------------------
 Players.PlayerAdded:Connect(function(player)
 	player.CharacterAdded:Connect(function()
@@ -328,9 +267,7 @@ Players.PlayerAdded:Connect(function(player)
 		ScreenGui.ResetOnSpawn = false
 		ScreenGui.Parent = playerGui
 
-		-- =====================================================================
-		-- ZAPTİYE KELEPÇE SİSTEMİ (SOL ORTA BUTON VE PANEL)
-		-- =====================================================================
+		-- ZAPTİYE PANEL BUTONU
 		local KelepceBtn = Instance.new("TextButton")
 		KelepceBtn.Size = UDim2.new(0, 55, 0, 55)
 		KelepceBtn.Position = UDim2.new(0, 15, 0.5, -27)
@@ -341,6 +278,7 @@ Players.PlayerAdded:Connect(function(player)
 		KelepceBtn.Visible = false
 		KelepceBtn.Parent = ScreenGui
 
+		-- ZAPTİYE HAPİS PANELİ
 		local HapisFrame = Instance.new("Frame")
 		HapisFrame.Size = UDim2.new(0, 240, 0, 190)
 		HapisFrame.Position = UDim2.new(0, 85, 0.5, -95)
@@ -376,7 +314,7 @@ Players.PlayerAdded:Connect(function(player)
 
 		task.spawn(function()
 			while task.wait(2) do
-				if player.Team and player.Team.Name == "Zaptiye Amirliği" then
+				if player.Team and player.Team.Name == "Zaptiye Amirligi" then
 					KelepceBtn.Visible = true
 				else
 					KelepceBtn.Visible = false
@@ -396,9 +334,7 @@ Players.PlayerAdded:Connect(function(player)
 			end
 		end)
 
-		-- =====================================================================
-		-- SAĞ ÜST: ÖRGÜT KURMA VE KATILMA SİSTEMİ (MENÜ)
-		-- =====================================================================
+		-- ÖRGÜT MENÜ BUTONU
 		local OrgutMenuBtn = Instance.new("TextButton")
 		OrgutMenuBtn.Size = UDim2.new(0, 110, 0, 40)
 		OrgutMenuBtn.Position = UDim2.new(1, -125, 0, 15)
@@ -408,6 +344,7 @@ Players.PlayerAdded:Connect(function(player)
 		OrgutMenuBtn.Font = Enum.Font.SourceSansBold
 		OrgutMenuBtn.Parent = ScreenGui
 
+		-- ÖRGÜT PANELİ
 		local OrgutFrame = Instance.new("Frame")
 		OrgutFrame.Size = UDim2.new(0, 260, 0, 220)
 		OrgutFrame.Position = UDim2.new(1, -285, 0, 65)
@@ -488,16 +425,20 @@ function copyCode() {
     try {
         var successful = document.execCommand('copy');
         if(successful) {
-            alert('Kod Eymen Paşa\'nın emriyle başarıyla kopyalandı! Şimdi Roblox Studio\'ya yapıştırabilirsin.');
+            alert('Kod Eymen Paşa\'nın Emriyle Başarıyla Kopyalandı! Şimdi Roblox Studio\'ya Yapıştırabilirsin.');
         } else {
-            alert('Kopyalama başarısız oldu, lütfen elle seçip kopyala.');
+            alert('Kopyalama başarısız oldu, lütfen elle seçerek kopyala.');
         }
     } catch (err) {
-        alert('Tarayıcı desteklemiyor, lütfen elle seçip kopyala.');
+        alert('Tarayıcı desteklemiyor, lütfen elle seçerek kopyala.');
     }
     window.getSelection().removeAllRanges();
 }
 </script>
+
+<div class="footer">
+    HÜKÜM VIRTUAL JUSTICE TEAM © 2026
+</div>
 
 </body>
 </html>
